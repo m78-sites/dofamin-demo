@@ -22,7 +22,9 @@
 <link rel="preload" href="fonts/playfair-display-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/manrope-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="preload" as="image" href="img/hall-wide-1280.webp" imagesrcset="img/hall-wide-1280.webp 1280w, img/hall-wide.webp 1920w" imagesizes="100vw" media="(min-width: 768px)">
+<link rel="preload" as="image" href="img/hero-interer.webp" media="(max-width: 767px)">
+<link rel="stylesheet" href="css/style.css?v=11">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">
 {
@@ -43,44 +45,43 @@
 <body>
 
 <svg class="sprite" aria-hidden="true" focusable="false">
-  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48a.92.92 0 0 0-.67.31c-.23.25-.87.85-.87 2.08 0 1.22.89 2.4 1.02 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29Z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.650-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.22 8.22 0 0 1-4.19-1.150l-.3-.18-3.12.82.83-3.040-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48a.92.92 0 0 0-.67.31c-.23.25-.87.85-.87 2.08 0 1.22.89 2.4 1.02 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.180-.06-.1-.23-.17-.48-.29Z"/></symbol>
   <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-  <symbol id="i-burger" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-burger" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5.5 12.5 4 4 9-9.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8L12 3Z"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-ne" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <!-- ромб ковра: A и перевёрнутая A сходятся основаниями -->
   <symbol id="i-rhomb" viewBox="0 0 40 48"><path d="M20 2 33 24 20 46 7 24Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 13h13M13.5 35h13" stroke="currentColor" stroke-width="1.2"/></symbol>
   <symbol id="i-cup" viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9Zm11 1h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c0 1 1 1.5 1 2.5M12 3.5c0 1 1 1.5 1 2.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
   <symbol id="i-laptop" viewBox="0 0 24 24"><path d="M5 6h14v9H5zM3 18h18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></symbol>
   <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m12 8 3 2.2-1.1 3.6h-3.8L9 10.2 12 8Zm0-4.5V8m3 2.2 4.8-1.4M13.9 13.8l2.8 4.2m-6.6-4.2L7.3 18M9 10.2 4.2 8.8" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
-  <symbol id="i-box" viewBox="0 0 24 24"><path d="M4.5 10h15v10h-15zM3.5 7h17v3h-17zM12 7v13M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7Zm0 0c1.5-3 5-3.5 5-1.5S14 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
 </svg>
 
 <a class="skip" href="#menu">Перейти к меню</a>
 
 <div class="demo-bar"><b>Демо-версия сайта для DOFAMIN.</b> Фото и тексты взяты из вашего Instagram. Цены поставим из вашего прайса. Сделано в М78.</div>
 
-<header class="header" data-header>
-  <div class="wrap header__row">
-    <a class="logo" href="#top" aria-label="DOFAMIN — на главную">
-      <img src="img/logo-dofamin.webp" alt="DOFAMIN" width="1198" height="286">
-    </a>
-    <nav class="nav" aria-label="Разделы">
-      <a href="#new">Новинки</a>
+<!-- Шапка-капсула -->
+<header class="hdr" data-header>
+  <div class="hdr__pill">
+    <a class="hdr__logo" href="#top" aria-label="DOFAMIN — на главную"><img src="img/logo-dofamin.webp" alt="DOFAMIN" width="1198" height="286"></a>
+    <nav class="hdr__nav" aria-label="Разделы">
+      <a href="#vitrina">Витрина</a>
       <a href="#menu">Меню</a>
-      <a href="#cakes">Торты на заказ</a>
+      <a href="#cakes">Торты</a>
       <a href="#room">Зал</a>
       <a href="#contacts">Контакты</a>
     </nav>
-    <div class="header__actions">
-      <a class="icon-btn" href="https://wa.me/79639887344" target="_blank" rel="noopener" aria-label="Написать в WhatsApp" data-wa><svg><use href="#i-wa"/></svg></a>
-      <button class="icon-btn" type="button" aria-label="Корзина" data-open-cart><svg><use href="#i-bag"/></svg><span class="badge" data-count>0</span></button>
-      <button class="icon-btn burger" type="button" aria-label="Открыть меню разделов" aria-expanded="false" data-burger><svg><use href="#i-burger"/></svg></button>
+    <div class="hdr__act">
+      <a class="ibtn" href="https://wa.me/79639887344" target="_blank" rel="noopener" aria-label="Написать в WhatsApp" data-wa><svg><use href="#i-wa"/></svg></a>
+      <button class="cartbtn" type="button" data-open-cart aria-label="Корзина"><svg><use href="#i-bag"/></svg><span class="cartbtn__label">Корзина</span><span class="cartbtn__n" data-count>0</span></button>
+      <button class="ibtn burger" type="button" aria-label="Открыть меню разделов" aria-expanded="false" data-burger><svg><use href="#i-burger"/></svg></button>
     </div>
   </div>
 </header>
@@ -88,16 +89,16 @@
 <div class="mnav" data-mnav aria-hidden="true">
   <div class="mnav__top">
     <img src="img/logo-dofamin.webp" alt="DOFAMIN" width="1198" height="286" style="height:20px;width:auto">
-    <button class="icon-btn" type="button" aria-label="Закрыть" data-mnav-close><svg><use href="#i-close"/></svg></button>
+    <button class="ibtn" type="button" aria-label="Закрыть" data-mnav-close><svg><use href="#i-close"/></svg></button>
   </div>
   <nav class="mnav__links" aria-label="Разделы">
-    <a href="#new">Новинки</a>
-    <a href="#menu">Меню</a>
-    <a href="#cakes">Торты на заказ</a>
-    <a href="#room">Зал</a>
-    <a href="#contacts">Контакты</a>
+    <a href="#vitrina"><span>01</span>Витрина</a>
+    <a href="#menu"><span>02</span>Меню</a>
+    <a href="#cakes"><span>03</span>Торты на заказ</a>
+    <a href="#room"><span>04</span>Зал</a>
+    <a href="#contacts"><span>05</span>Контакты</a>
   </nav>
-  <div class="rug-band" data-rug-band="2"></div>
+  <div class="mnav__rug" data-rug-band="4" aria-hidden="true"></div>
   <div class="mnav__foot">
     <a class="btn btn--accent btn--block" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa><svg><use href="#i-wa"/></svg>Написать в WhatsApp</a>
     <p class="note" style="text-align:center">ул. Лорсанова, 5 · каждый день 08:00–00:00</p>
@@ -106,145 +107,134 @@
 
 <main id="top">
 
-  <!-- 1. Первый экран -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="wrap hero__grid">
-      <div class="hero__text">
-        <h1 id="hero-title">Твой ежедневный дофамин — здесь и&nbsp;сейчас</h1>
-        <p class="lead">Кофейня и кондитерская в Грозном: моти-кейки, корпусные десерты, торты на заказ, завтраки и кофе. Ул. Лорсанова, 5, каждый день с 08:00 до 00:00.</p>
+  <!-- 1. Первый экран: зал на весь экран, ковёр-занавес, манифест с фото в строке -->
+  <section class="hero" aria-labelledby="hero-title" data-hero>
+    <picture class="hero__bg">
+      <source media="(min-width: 768px)" srcset="img/hall-wide-1280.webp 1280w, img/hall-wide.webp 1920w" sizes="100vw">
+      <img src="img/hero-interer.webp" alt="" width="960" height="1280" fetchpriority="high" data-hero-img>
+    </picture>
+    <div class="hero__curtain" data-curtain aria-hidden="true"></div>
+    <div class="hero__shade" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <p class="hero__kicker"><span class="dot"></span><span data-status-short>Открыто до 00:00</span><span class="sep">·</span>Лорсанова, 5</p>
+        <h1 id="hero-title" class="manifest">
+          <span class="ln">Твой ежедневный</span>
+          <span class="ln"><span class="chip chip--a"><img src="img/menu/moti-480.webp" alt="" width="480" height="600"></span>дофамин&nbsp;—</span>
+          <span class="ln">здесь <span class="chip chip--b"><img src="img/menu/kruassan-morozhenoe-480.webp" alt="" width="480" height="600"></span> и&nbsp;сейчас</span>
+        </h1>
+        <p class="hero__lead">Кофейня и кондитерская в Грозном: моти-кейки, корпусные десерты, торты на заказ, завтраки и кофе.</p>
         <div class="hero__cta">
-          <a class="btn btn--accent" href="#menu">Открыть меню<svg><use href="#i-arrow"/></svg></a>
-          <a class="btn btn--ghost" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa><svg><use href="#i-wa"/></svg>Заказать в WhatsApp</a>
+          <a class="btn btn--accent" href="#menu">Открыть меню<span class="btn__ico"><svg><use href="#i-arrow"/></svg></span></a>
+          <a class="btn btn--glass" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa><svg><use href="#i-wa"/></svg>Заказать в WhatsApp</a>
         </div>
-        <ul class="hero__facts">
-          <li><svg><use href="#i-star"/></svg><span><b>5,0</b> в 2ГИС</span></li>
-          <li>Кофе с собой</li>
-          <li>Торты на заказ</li>
-        </ul>
       </div>
-      <div class="hero__art">
-        <div class="rug-frame" aria-hidden="true" data-rug-hero></div>
-        <figure class="hero__photo">
-          <img src="img/menu/moti-800.webp" srcset="img/menu/moti-480.webp 480w, img/menu/moti-800.webp 800w" sizes="(min-width:1024px) 22vw, 46vw" alt="Чизкейк-моти на деревянном блюде" width="800" height="1000" fetchpriority="high">
-          <figcaption>Новинка: чизкейк-моти</figcaption>
-        </figure>
-      </div>
+
+      <aside class="bento" aria-label="Коротко">
+        <a class="tile tile--photo" href="#vitrina">
+          <img src="img/menu/moti-480.webp" alt="" width="480" height="600">
+          <span class="tile__cap"><small>Новинка</small>Чизкейк-моти<svg><use href="#i-arrow-ne"/></svg></span>
+        </a>
+        <a class="tile tile--photo tile--box" href="#cakes">
+          <img src="img/tort-korobka.webp" alt="" width="720" height="900">
+          <span class="tile__cap"><small>На заказ</small>Торты в коробке с лентой<svg><use href="#i-arrow-ne"/></svg></span>
+        </a>
+        <div class="tile tile--score">
+          <span class="tile__big">5,0</span>
+          <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+          <span class="tile__small">12 оценок в 2ГИС</span>
+        </div>
+      </aside>
     </div>
+
+    <div class="hero__edge" data-rug-band="2" aria-hidden="true"></div>
   </section>
 
-  <!-- 2. Факты -->
-  <section class="facts" aria-label="Коротко о кофейне">
-    <ul class="facts__list wrap" style="padding:0">
-      <li class="facts__item"><b>08:00–00:00</b><span>каждый день, без выходных</span></li>
-      <li class="facts__item"><b>Лорсанова, 5</b><span>центр Грозного</span></li>
-      <li class="facts__item"><b>5,0 ★</b><span>12 оценок в 2ГИС</span></li>
-      <li class="facts__item"><b>Торты на заказ</b><span>в фирменной коробке с лентой</span></li>
-    </ul>
-  </section>
+  <!-- 2. Бегущая строка их фраз -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" data-marquee>
+      <span>Мы выбираем счастье</span><svg><use href="#i-rhomb"/></svg>
+      <span>Дофамин умеем поднять</span><svg><use href="#i-rhomb"/></svg>
+      <span>Твой десерт на сегодня уже выбран</span><svg><use href="#i-rhomb"/></svg>
+      <span>Место, где хочется задержаться</span><svg><use href="#i-rhomb"/></svg>
+      <span>coffee &amp; pastry</span><svg><use href="#i-rhomb"/></svg>
+    </div>
+  </div>
 
-  <!-- 3. Новинки -->
-  <section class="section" id="new" aria-labelledby="new-title">
-    <div class="wrap">
-      <div class="section__head reveal">
+  <!-- 3. Витрина: горизонтальная лента, фон перекрашивается под десерт -->
+  <section class="vitrina" id="vitrina" aria-labelledby="v-title" data-vitrina>
+    <div class="vitrina__sticky">
+      <div class="vitrina__head">
         <div>
           <p class="label">Сейчас на витрине</p>
-          <h2 id="new-title">Новинки</h2>
+          <h2 id="v-title">Витрина</h2>
         </div>
-        <p class="lead">Моти-кейки долго не задерживаются: количество ограничено, и когда вкусы закончатся, следующей партии придётся ждать. Забронируйте свои заранее.</p>
+        <div class="vitrina__count" aria-hidden="true"><b data-v-cur>01</b><span>/</span><span data-v-total>06</span></div>
       </div>
-      <div class="novelties__track" data-novelties></div>
+      <div class="vitrina__track" data-v-track></div>
+      <div class="vitrina__bar" aria-hidden="true"><span data-v-bar></span></div>
     </div>
   </section>
 
-  <div class="rug-band rug-band--quiet" data-rug-band="2" aria-hidden="true"></div>
-
-  <!-- 4. Меню -->
-  <section class="menu section" id="menu" aria-labelledby="menu-title" style="padding-top:var(--s8)">
+  <!-- 4. Меню-карта -->
+  <section class="menu" id="menu" aria-labelledby="menu-title">
     <div class="wrap">
-      <div class="section__head reveal">
-        <div>
-          <p class="label">Десерты, завтраки, блюда, напитки</p>
-          <h2 id="menu-title">Меню</h2>
-        </div>
-        <p class="lead">Соберите заказ и отправьте его в WhatsApp: администратор подтвердит и скажет, когда забрать. Нажмите на блюдо, чтобы увидеть состав.</p>
+      <div class="shead">
+        <p class="label">Десерты · выпечка · завтраки · блюда · напитки</p>
+        <h2 id="menu-title" class="shead__title">Меню</h2>
+        <p class="lead">Соберите заказ и отправьте его в WhatsApp: администратор подтвердит и скажет, когда забрать. Нажмите на позицию, чтобы увидеть фото и состав.</p>
       </div>
     </div>
     <div class="tabs" data-tabs>
       <div class="wrap tabs__row" role="navigation" aria-label="Разделы меню" data-tabs-row></div>
     </div>
     <div class="wrap" data-menu></div>
+    <div class="peek" data-peek aria-hidden="true"></div>
   </section>
 
-  <!-- 5. Только в DOFAMIN -->
-  <section class="special section" aria-labelledby="sp-title">
+  <!-- 5. Только в DOFAMIN: текст проявляется по словам -->
+  <section class="only" aria-labelledby="only-title">
     <div class="wrap">
-      <div class="section__head reveal">
-        <div>
-          <p class="label">То, о чём спрашивают</p>
-          <h2 id="sp-title">Только в DOFAMIN</h2>
-        </div>
-        <p class="lead">Вещи с историей, которые мы подаём с уважением к традиции.</p>
-      </div>
-      <div class="special__grid">
-        <article class="sp reveal">
-          <svg class="sp__mark" style="color:var(--rug-red)"><use href="#i-rhomb"/></svg>
+      <p class="label">То, о чём спрашивают</p>
+      <h2 id="only-title" class="visually-hidden">Только в DOFAMIN</h2>
+      <p class="magic" data-magic>Эспрессо <i>с&nbsp;сиваком.</i> Тальбина <i>с&nbsp;финиками и&nbsp;орехами.</i> Казахский чай <i>и&nbsp;казахстанский шоколад.</i> Только в&nbsp;DOFAMIN.</p>
+      <div class="only__grid">
+        <article class="sp">
+          <span class="sp__n">01</span>
           <h3>Эспрессо с сиваком</h3>
-          <p>Сивак — веточка дерева арак. Им чистят зубы уже больше 7000 лет: в нём природный фтор и антибактериальные вещества. Попробовать эспрессо с сиваком можно только у нас.</p>
-          <button class="btn btn--ghost" type="button" data-add="espresso-sivak"><svg><use href="#i-plus"/></svg>В корзину</button>
+          <p>Сивак — веточка дерева арак. Им чистят зубы уже больше 7000 лет: в нём природный фтор и антибактериальные вещества.</p>
+          <button class="lnk" type="button" data-add="espresso-sivak"><svg><use href="#i-plus"/></svg>В корзину</button>
         </article>
-        <article class="sp reveal">
-          <svg class="sp__mark" style="color:var(--ink)"><use href="#i-rhomb"/></svg>
+        <article class="sp">
+          <span class="sp__n">02</span>
           <h3>Тальбина</h3>
-          <p>Любимая каша Пророка Мухаммада ﷺ. Нежная ячменная каша с финиками и орехами. Простая, тёплая и питательная, с особым смыслом и историей.</p>
-          <button class="btn btn--ghost" type="button" data-add="talbina"><svg><use href="#i-plus"/></svg>В корзину</button>
+          <p>Любимая каша Пророка Мухаммада ﷺ. Нежная ячменная каша с финиками и орехами. Простая, тёплая и питательная.</p>
+          <button class="lnk" type="button" data-add="talbina"><svg><use href="#i-plus"/></svg>В корзину</button>
         </article>
-        <article class="sp reveal">
-          <svg class="sp__mark" style="color:#7fa3c0"><use href="#i-rhomb"/></svg>
+        <article class="sp">
+          <span class="sp__n">03</span>
           <h3>Казахский чай</h3>
-          <p>Настоящий казахский чай и немного культуры Казахстана в Грозном. К нему подаём казахстанский шоколад, он особенно хорош и с нашим американо.</p>
-          <button class="btn btn--ghost" type="button" data-add="kazakh-chay"><svg><use href="#i-plus"/></svg>В корзину</button>
+          <p>Настоящий казахский чай и немного культуры Казахстана в Грозном. К нему подаём казахстанский шоколад.</p>
+          <button class="lnk" type="button" data-add="kazakh-chay"><svg><use href="#i-plus"/></svg>В корзину</button>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- 6. Торты на заказ -->
-  <section class="section" id="cakes" aria-labelledby="cakes-title">
-    <div class="wrap cakes__grid">
-      <figure class="cakes__photo reveal">
-        <img src="img/tort-korobka.webp" alt="Торт в фирменной коробке DOFAMIN с бордовой лентой" width="720" height="900" loading="lazy">
-      </figure>
-      <div class="cakes__text reveal">
-        <p class="label">Торты на заказ</p>
-        <h2 id="cakes-title">Самые чёткие торты в коробке с лентой DOFAMIN</h2>
-        <p class="lead">На день рождения, на встречу с родными или просто без повода. Расскажите, что хотите, и мы соберём вкус и оформление под вас.</p>
-        <ol class="steps">
-          <li><span>Напишите в WhatsApp: повод, вкус, вес и дату.</span></li>
-          <li><span>Согласуем начинку, оформление и цену.</span></li>
-          <li><span>Заберите торт в кофейне на Лорсанова, 5.</span></li>
-        </ol>
-        <a class="btn btn--accent" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa="Здравствуйте! Хочу заказать торт. Повод: … Вкус: … Вес: … Дата: …"><svg><use href="#i-wa"/></svg>Обсудить торт в WhatsApp</a>
-        <p class="note">Есть подарочные сертификаты DOFAMIN, их тоже можно заказать в WhatsApp.</p>
-        <div class="mini-gallery" aria-label="С витрины">
-          <img src="img/napoleon.webp" alt="Слоёный торт с витрины" width="676" height="845" loading="lazy">
-          <img src="img/shokoladnyi-tort.webp" alt="Шоколадный торт с чаем" width="800" height="1000" loading="lazy">
-          <img src="img/kruassan-fistashka.webp" alt="Круассаны с кремом и гранатом на витрине" width="688" height="860" loading="lazy">
-        </div>
+  <!-- 6. Зал: фото раскрывается на весь экран при прокрутке -->
+  <section class="room" id="room" aria-labelledby="room-title" data-expand>
+    <div class="room__sticky">
+      <div class="room__frame" data-expand-frame>
+        <picture>
+          <source media="(min-width: 768px)" srcset="img/room-wide-1280.webp 1280w, img/room-wide.webp 1920w" sizes="100vw">
+          <img src="img/interer-zal.webp" alt="Зал DOFAMIN: синие стены, светящаяся вывеска и столики" width="900" height="1200" loading="lazy">
+        </picture>
       </div>
-    </div>
-  </section>
-
-  <!-- 7. Синяя комната -->
-  <section class="room section" id="room" aria-labelledby="room-title">
-    <div class="wrap room__grid">
-      <div class="room__photos reveal">
-        <img src="img/hero-interer.webp" alt="Зал DOFAMIN: синие стены, бордовый потолок, латунные люстры и картины" width="960" height="1280" loading="lazy">
-        <img src="img/interer-zal.webp" alt="Столики у окна и светящаяся вывеска DOFAMIN" width="900" height="1200" loading="lazy">
-      </div>
-      <div class="room__text reveal">
-        <p class="label" style="color:#a9bccb">Зал</p>
+      <div class="room__text">
+        <p class="label">Зал</p>
         <h2 id="room-title">Место, где хочется задержаться</h2>
-        <p class="lead">Уютный интерьер, тёплая атмосфера, аромат свежесваренного кофе и десерты, которые делают день немного счастливее. Здесь приятно встретиться с друзьями, поработать, провести время наедине с собой или просто сделать паузу среди городской суеты.</p>
+        <p class="lead">Уютный интерьер, тёплая атмосфера, аромат свежесваренного кофе и десерты, которые делают день немного счастливее.</p>
         <ul class="feat">
           <li><svg><use href="#i-laptop"/></svg>Можно с ноутбуком</li>
           <li><svg><use href="#i-ball"/></svg>Футбольные вечера на проекторе</li>
@@ -255,31 +245,56 @@
     </div>
   </section>
 
-  <!-- 8. Отзывы -->
-  <section class="section" aria-labelledby="rv-title">
-    <div class="wrap">
-      <div class="section__head reveal">
-        <div class="reviews__top">
-          <span class="score">5,0</span>
-          <div>
-            <div class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-            <h2 id="rv-title" style="font-size:var(--t-h3);margin-top:var(--s2)">Отзывы гостей в 2ГИС</h2>
-            <p class="note">12 оценок · ноябрь 2026</p>
-          </div>
-        </div>
-        <p class="lead">Слова гостей из 2ГИС. Поправили только опечатки и сократили фамилии.</p>
+  <!-- 7. Торты: коробка выезжает и выпрямляется, вокруг — надпись с ленты -->
+  <section class="cakes" id="cakes" aria-labelledby="cakes-title" data-box>
+    <div class="cakes__sticky">
+      <div class="cakes__stage">
+        <svg class="ring" viewBox="0 0 400 400" aria-hidden="true" data-ring>
+          <defs><path id="ringpath" d="M200,200 m-170,0 a170,170 0 1,1 340,0 a170,170 0 1,1 -340,0"/></defs>
+          <text><textPath href="#ringpath">DOFAMIN · coffee &amp; pastry · торты на заказ · DOFAMIN · coffee &amp; pastry · торты на заказ ·</textPath></text>
+        </svg>
+        <img class="cakes__box" src="img/tort-korobka.webp" alt="Торт в фирменной коробке DOFAMIN с бордовой лентой" width="720" height="900" loading="lazy" data-box-img>
       </div>
-      <div class="reviews__grid" data-reviews></div>
-      <a class="btn btn--ghost reviews__more" href="https://2gis.ru/grozny/firm/70000001111437714/tab/reviews" target="_blank" rel="noopener">Все отзывы в 2ГИС<svg><use href="#i-arrow"/></svg></a>
+      <div class="cakes__text">
+        <p class="label">Торты на заказ</p>
+        <h2 id="cakes-title">Самые чёткие торты в&nbsp;коробке с лентой DOFAMIN</h2>
+        <ol class="steps">
+          <li data-step>Напишите в WhatsApp: повод, вкус, вес и дату.</li>
+          <li data-step>Согласуем начинку, оформление и цену.</li>
+          <li data-step>Заберите торт в кофейне на Лорсанова, 5.</li>
+        </ol>
+        <a class="btn btn--accent" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa="Здравствуйте! Хочу заказать торт. Повод: … Вкус: … Вес: … Дата: …"><svg><use href="#i-wa"/></svg>Обсудить торт в WhatsApp</a>
+        <p class="note">Есть подарочные сертификаты DOFAMIN, их тоже можно заказать в WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Отзывы: созвездие вокруг оценки -->
+  <section class="stars-sec" aria-labelledby="rv-title">
+    <div class="wrap">
+      <div class="constel" data-constel>
+        <svg class="constel__rings" viewBox="0 0 1000 760" preserveAspectRatio="none" aria-hidden="true">
+          <circle cx="500" cy="380" r="150"/><circle cx="500" cy="380" r="270"/><circle cx="500" cy="380" r="390"/>
+          <line x1="500" y1="380" x2="190" y2="140"/><line x1="500" y1="380" x2="820" y2="150"/><line x1="500" y1="380" x2="170" y2="620"/><line x1="500" y1="380" x2="830" y2="610"/>
+        </svg>
+        <div class="constel__core">
+          <span class="score">5,0</span>
+          <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+          <h2 id="rv-title">Гости о нас в 2ГИС</h2>
+          <p class="note">12 оценок · поправили только опечатки</p>
+        </div>
+        <div class="constel__cards" data-reviews></div>
+      </div>
+      <div class="center"><a class="btn btn--glass" href="https://2gis.ru/grozny/firm/70000001111437714/tab/reviews" target="_blank" rel="noopener">Все отзывы в 2ГИС<svg><use href="#i-arrow-ne"/></svg></a></div>
     </div>
   </section>
 
   <!-- 9. Контакты -->
-  <section class="contacts section" id="contacts" aria-labelledby="ct-title">
+  <section class="contacts" id="contacts" aria-labelledby="ct-title">
     <div class="wrap contacts__grid">
-      <div class="reveal">
+      <div>
         <p class="label">Контакты</p>
-        <h2 id="ct-title" style="font-size:var(--t-h2);margin:var(--s3) 0 var(--s6)">Ждём вас на Лорсанова</h2>
+        <h2 id="ct-title" class="shead__title">Ждём вас на&nbsp;Лорсанова</h2>
         <dl class="info">
           <div><dt>Адрес</dt><dd>Грозный, ул. Лорсанова, 5</dd></div>
           <div><dt>Часы</dt><dd>Каждый день, 08:00–00:00<br><span class="status" data-status>Сейчас открыто</span></dd></div>
@@ -288,12 +303,12 @@
         </dl>
         <div class="contacts__btns">
           <a class="btn btn--accent" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa><svg><use href="#i-wa"/></svg>Написать в WhatsApp</a>
-          <a class="btn btn--ghost" href="https://2gis.ru/grozny/firm/70000001111437714" target="_blank" rel="noopener">Маршрут в 2ГИС</a>
-          <a class="btn btn--ghost" data-yandex target="_blank" rel="noopener" href="#">Яндекс Карты</a>
+          <a class="btn btn--glass" href="https://2gis.ru/grozny/firm/70000001111437714" target="_blank" rel="noopener">Маршрут в 2ГИС</a>
+          <a class="btn btn--glass" data-yandex target="_blank" rel="noopener" href="#">Яндекс Карты</a>
         </div>
       </div>
-      <figure class="facade reveal">
-        <img src="img/fasad.webp" alt="Фасад кофейни: вывеска DOFAMIN Cake Bake" width="720" height="360" loading="lazy">
+      <figure class="facade">
+        <img src="img/fasad.webp" alt="Фасад кофейни: вывеска DOFAMIN Cake · Bake" width="720" height="360" loading="lazy">
         <figcaption>Вывеска DOFAMIN Cake · Bake</figcaption>
       </figure>
     </div>
@@ -302,11 +317,10 @@
 </main>
 
 <footer class="footer">
-  <div class="footer__rug" data-rug-footer aria-hidden="true"></div>
   <div class="wrap">
-    <div class="footer__logo"><img src="img/logo-dofamin.webp" alt="DOFAMIN" width="1198" height="286" loading="lazy"></div>
-    <p class="footer__tag">coffee &amp; pastry</p>
+    <div class="woven" role="img" aria-label="DOFAMIN"><div class="woven__fill" data-woven></div></div>
     <div class="footer__row">
+      <span class="footer__tag">coffee &amp; pastry</span>
       <span>© DOFAMIN, Грозный, ул. Лорсанова, 5</span>
       <span><a href="https://www.instagram.com/dofamincake/" target="_blank" rel="noopener">Instagram</a> · <a href="https://wa.me/79639887344" target="_blank" rel="noopener">WhatsApp</a></span>
       <span>Демо-версия сайта · М78</span>
@@ -344,7 +358,7 @@
   <div class="cart__body">
     <div data-cart-list></div>
     <div class="cart__empty" data-cart-empty>
-      <p style="font-family:var(--f-display);font-size:22px;color:var(--ink)">Пока пусто</p>
+      <p class="cart__empty-t">Пока пусто</p>
       <p>Добавьте десерт или завтрак и отправьте заказ в WhatsApp.</p>
     </div>
     <form class="cart__form" data-cart-form hidden>
@@ -370,7 +384,7 @@
 
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 
-<script src="js/menu-data.js?v=2"></script>
-<script src="js/app.js?v=3"></script>
+<script src="js/menu-data.js?v=11"></script>
+<script src="js/app.js?v=12"></script>
 </body>
 </html>
