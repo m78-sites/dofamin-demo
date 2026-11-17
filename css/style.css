@@ -24,6 +24,9 @@
   --surface:#351917;
   --wine:#4a0e14;          /* бордо упаковки */
   --room:#16242e;          /* синие стены зала, затемнено */
+  --navy:#15232f;          /* синий фон блоков: стены зала, синие нити ковра */
+  --navy-card:#1d3242;     /* синие карточки на бордовом фоне */
+  --navy-glass:rgba(21,35,47,.62);
   --ink:#f4ebe1;
   --muted:#c9b2a6;
   --line:rgba(244,235,225,.14);
@@ -260,7 +263,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 /* ——— 4. Каталог ———
    Приём Delta Cafés + Henrietta Said: продукт вырезан из фона и стоит на подложке цвета раздела. */
-.menu{background:var(--bg);padding:var(--s9) 0 var(--s9)}
+/* фон синий, карточки тёплые — чтобы карточки не сливались с фоном */
+.menu{background:var(--navy);padding:var(--s9) 0 var(--s9)}
+.menu .tab{background:var(--navy-glass)}
 .shead{display:grid;gap:var(--s4);margin-bottom:var(--s7)}
 .shead__title{font-size:var(--t-h2)}
 @media (min-width:1024px){.shead{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;column-gap:var(--s9)}.shead .label{grid-column:1 / -1}.shead .lead{justify-self:end}}
@@ -275,11 +280,11 @@ ul,ol{margin:0;padding:0;list-style:none}
 .cat__head{display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s5)}
 .cat__head h3{font-size:clamp(40px,5vw,72px);line-height:1}
 .cat__head sup{font-family:var(--f-text);font-size:13px;font-weight:500;color:var(--accent-text);margin-top:.6em}
-/* цвет подложки — по разделу, из палитры бренда */
-.cat[data-cat="deserty"]{--ct:#4a0e14}
-.cat[data-cat="vypechka"]{--ct:#4a2a15}
-.cat[data-cat="zavtraki"]{--ct:#1a2c38}
-.cat[data-cat="blyuda"]{--ct:#3a1a17}
+/* цвет подложки — по разделу: тёплые оттенки на синем фоне (бордо, карамель, терракота, какао) */
+.cat[data-cat="deserty"]{--ct:#5c1622}
+.cat[data-cat="vypechka"]{--ct:#5f3a1c}
+.cat[data-cat="zavtraki"]{--ct:#6b2c22}
+.cat[data-cat="blyuda"]{--ct:#4d2620}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media (min-width:768px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}}
 @media (min-width:1200px){.pgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -319,7 +324,8 @@ ul,ol{margin:0;padding:0;list-style:none}
 .magic .w{opacity:var(--o,.16);transition:opacity .25s linear}
 .only__grid{display:grid;gap:var(--gap);margin-top:var(--s8)}
 @media (min-width:900px){.only__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.sp{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s6) 0 0;border-top:1px solid var(--line-2)}
+/* бордовый фон, синие карточки — наоборот к меню */
+.sp{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s5) var(--s5) var(--s4);border-radius:var(--r-card);background:var(--navy-card);box-shadow:var(--sh-2)}
 .sp__n{font-family:var(--f-display);font-style:italic;font-size:20px;color:#e08a8b}
 .sp h3{font-size:var(--t-h3)}
 .sp p{color:var(--muted);font-size:15.5px}
@@ -369,7 +375,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 }
 
 /* ——— 8. Отзывы-созвездие ——— */
-.stars-sec{background:var(--bg);padding:var(--s9) 0}
+.stars-sec{background:var(--wine);padding:var(--s9) 0}
 .constel{position:relative}
 .constel__rings{display:none}
 .constel__core{text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--s2);margin-bottom:var(--s7)}
@@ -377,7 +383,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .constel__core .stars svg{width:20px;height:20px}
 .constel__core h2{font-size:var(--t-h3);margin-top:var(--s2)}
 .constel__cards{display:grid;gap:var(--gap)}
-.rv{margin:0;padding:var(--s5);border-radius:var(--r-card);background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:var(--s4)}
+.rv{margin:0;padding:var(--s5);border-radius:var(--r-card);background:var(--navy-card);border:1px solid rgba(160,195,225,.12);display:flex;flex-direction:column;gap:var(--s4)}
 .rv blockquote{margin:0;font-family:var(--f-display);font-style:italic;font-size:19px;line-height:1.45}
 .rv figcaption{font-size:13px;color:var(--muted)}
 .stars-sec .center{margin-top:var(--s7)}
@@ -395,7 +401,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 }
 
 /* ——— 9. Контакты ——— */
-.contacts{background:var(--bg-deep);padding:var(--s9) 0}
+.contacts{background:var(--navy);padding:var(--s9) 0}
 .contacts__grid{display:grid;gap:var(--s7)}
 @media (min-width:1024px){.contacts__grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:var(--s9);align-items:center}}
 .contacts .shead__title{margin:var(--s3) 0 var(--s6)}
@@ -409,7 +415,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .status.is-closed::before{background:var(--accent-text)}
 .contacts__btns{display:grid;gap:var(--s3);margin-top:var(--s6)}
 @media (min-width:640px){.contacts__btns{grid-template-columns:repeat(2,minmax(0,1fr))}.contacts__btns .btn--accent{grid-column:1 / -1}}
-.facade{margin:0;border-radius:var(--r-card);overflow:hidden;box-shadow:var(--sh-2);background:var(--surface)}
+.facade{margin:0;border-radius:var(--r-card);overflow:hidden;box-shadow:var(--sh-2);background:var(--wine)}
 .facade img{width:100%;aspect-ratio:2/1;object-fit:cover}
 .facade figcaption{padding:var(--s3) var(--s4);font-size:13px;color:var(--muted)}
 
