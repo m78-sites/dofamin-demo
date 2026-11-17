@@ -65,27 +65,34 @@
     : Promise.resolve();
   fontsReady.then(buildRugs);
 
-  /* Первый экран: ковёр на весь экран. Каждый ряд — отдельный слой и едет сдвигом (без перерисовки),
-     ряды через один перевёрнуты и идут навстречу. Число рядов и повторов — по размеру экрана. */
+  /* Первый экран: ковёр на весь экран — одна SVG-картинка, ряды двигаются внутри неё
+     (так же, как надпись в подвале: этот способ работает и на iPhone). Ряды через один перевёрнуты
+     и идут навстречу. Число рядов и повторов — по размеру экрана. */
   const heroRug = $('[data-hero-rug]');
   let heroW = 0;
   function buildHeroRug() {
     if (!heroRug || window.innerWidth === heroW) return;
     heroW = window.innerWidth;
-    const h = heroRug.getBoundingClientRect().height || window.innerHeight;
+    const box = heroRug.getBoundingClientRect();
+    const h = box.height || window.innerHeight, w = box.width || heroW;
     const rows = Math.max(9, Math.round(h / 66));
     const P = W + 46;                                   // один повтор DOFAMIN с промежутком
-    const periodPx = P * (h / rows) / (CAP + 4);
-    const half = Math.ceil(heroW / periodPx) + 1;       // сдвиг на −50% = half повторов, круг без скачка
+    const vh = rows * CAP, vw = w * vh / h;             // размер картинки в её единицах
+    const k = Math.ceil(vw / P);                        // сдвиг на k повторов — круг без скачка
+    const sh = (k * P).toFixed(1), dur = k * 10;        // 10 секунд на один повтор
     let line = '';
-    for (let k = 0; k < half * 2; k++) line += `<text x="${(k * P).toFixed(1)}" y="${CAP}" font-size="100"><tspan class="r">DOFA</tspan><tspan class="b">MIN</tspan></text>`;
-    const vw = (half * 2 * P).toFixed(1), vh = (CAP + 4).toFixed(1);
-    const svg = `<svg class="rug" viewBox="0 -2 ${vw} ${vh}" style="aspect-ratio:${vw}/${vh}" aria-hidden="true" focusable="false">${line}</svg>`;
-    heroRug.style.setProperty('--rows', rows);
-    heroRug.style.setProperty('--dur', half * 10 + 's');
-    let html = '';
-    for (let r = 0; r < rows; r++) html += `<div class="hrow${r % 2 ? ' is-flip' : ''}"><div class="hrow__t">${svg}</div></div>`;
-    heroRug.innerHTML = html;
+    for (let i = 0; i < 2 * k + 1; i++) line += `<text x="${(i * P).toFixed(1)}" y="${CAP}" font-size="100"><tspan class="r">DOFA</tspan><tspan class="b">MIN</tspan></text>`;
+    let g = '';
+    for (let r = 0; r < rows; r++) {
+      const flip = r % 2 === 1;
+      const outer = flip ? `translate(0 ${(r * CAP + CAP).toFixed(1)}) scale(1 -1)` : `translate(0 ${(r * CAP).toFixed(1)})`;
+      g += `<g transform="${outer}"><g class="hl${flip ? ' hl--b' : ''}">${line}</g></g>`;
+    }
+    heroRug.innerHTML = `<svg class="rug" viewBox="0 0 ${vw.toFixed(1)} ${vh.toFixed(1)}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><style>` +
+      `.hl{animation:hlA ${dur}s linear infinite}.hl--b{animation-name:hlB}` +
+      `@keyframes hlA{to{transform:translateX(-${sh}px)}}@keyframes hlB{from{transform:translateX(-${sh}px)}to{transform:translateX(0)}}` +
+      `@media (prefers-reduced-motion:reduce){.hl{animation-duration:${dur * 2}s!important;animation-iteration-count:infinite!important}}` +
+      `</style>${g}</svg>`;
   }
   buildHeroRug();
 
