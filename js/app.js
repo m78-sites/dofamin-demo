@@ -1,4 +1,4 @@
-/* DOFAMIN — демо-сайт, версия 2. Данные — в menu-data.js */
+/* DOFAMIN — демо-сайт, версия 4. Данные — в menu-data.js */
 (function () {
   'use strict';
 
@@ -65,80 +65,95 @@
     : Promise.resolve();
   fontsReady.then(buildRugs);
 
+  /* Первый экран: ковёр на весь экран. Каждый ряд — отдельный слой и едет сдвигом (без перерисовки),
+     ряды через один перевёрнуты и идут навстречу. Число рядов и повторов — по размеру экрана. */
+  const heroRug = $('[data-hero-rug]');
+  let heroW = 0;
+  function buildHeroRug() {
+    if (!heroRug || window.innerWidth === heroW) return;
+    heroW = window.innerWidth;
+    const h = heroRug.getBoundingClientRect().height || window.innerHeight;
+    const rows = Math.max(9, Math.round(h / 66));
+    const P = W + 46;                                   // один повтор DOFAMIN с промежутком
+    const periodPx = P * (h / rows) / (CAP + 4);
+    const half = Math.ceil(heroW / periodPx) + 1;       // сдвиг на −50% = half повторов, круг без скачка
+    let line = '';
+    for (let k = 0; k < half * 2; k++) line += `<text x="${(k * P).toFixed(1)}" y="${CAP}" font-size="100"><tspan class="r">DOFA</tspan><tspan class="b">MIN</tspan></text>`;
+    const vw = (half * 2 * P).toFixed(1), vh = (CAP + 4).toFixed(1);
+    const svg = `<svg class="rug" viewBox="0 -2 ${vw} ${vh}" style="aspect-ratio:${vw}/${vh}" aria-hidden="true" focusable="false">${line}</svg>`;
+    heroRug.style.setProperty('--rows', rows);
+    heroRug.style.setProperty('--dur', half * 10 + 's');
+    let html = '';
+    for (let r = 0; r < rows; r++) html += `<div class="hrow${r % 2 ? ' is-flip' : ''}"><div class="hrow__t">${svg}</div></div>`;
+    heroRug.innerHTML = html;
+  }
+  buildHeroRug();
+
   /* ================================================================
      Бегущая строка: копия содержимого для бесшовного круга
      ================================================================ */
   const mq = $('[data-marquee]');
   if (mq) mq.innerHTML += mq.innerHTML;
 
+  /* Лента с коробки торта: 8 повторов, сдвиг на половину — круг без скачка */
+  $$('[data-rib]').forEach(el => {
+    el.innerHTML = '<b>DOFAMIN</b><span>coffee &amp; pastry</span><span aria-hidden="true">·</span>'.repeat(8);
+  });
+
   /* ================================================================
-     Витрина
+     Витрина как сторис: кружки, полоски, листается сама, пока блок на экране
      ================================================================ */
   const vSec = $('[data-vitrina]');
-  const vTrack = $('[data-v-track]');
-  let vSlides = [];
-  let vActive = -1;
-  if (vTrack) {
-    vTrack.innerHTML = VITRINA.map((v, i) => {
-      const it = byId[v.id];
-      const price = it && it.price ? `<span class="vslide__price">${rub(it.price)}</span>` : '';
-      const flavors = v.flavors ? `<ul class="chips" aria-label="Вкусы">${v.flavors.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : '';
-      const btn = v.action === 'wa'
-        ? `<a class="btn btn--accent" href="${waLink(v.wa)}" target="_blank" rel="noopener">${esc(v.btn)}<span class="btn__ico"><svg><use href="#i-wa"/></svg></span></a>`
-        : `<button class="btn btn--accent" type="button" data-add="${v.id}">${esc(v.btn)}<span class="btn__ico"><svg><use href="#i-plus"/></svg></span></button>`;
-      return `<article class="vslide" data-i="${i}">
-        <div class="vposter" style="--len:${(v.word || v.name).length}">
-          <span class="vposter__word" aria-hidden="true">${esc(v.word || v.name)}</span>
-          <img class="vposter__cut" src="img/cut/${v.photo}-900.webp" alt="${esc(v.name)}" loading="lazy" decoding="async">
-          <span class="vslide__tag">${esc(v.tag)}</span>
-        </div>
-        <div class="vslide__body">
-          <span class="vslide__num">${pad2(i + 1)}</span>
-          <h3 class="vslide__name">${esc(v.name)}</h3>
-          <p class="vslide__line">${esc(v.line)}</p>
-          ${flavors}
-          <div class="vslide__foot">${btn}${price}</div>
-        </div>
-      </article>`;
-    }).join('');
-    vSlides = $$('.vslide', vTrack);
-    $('[data-v-total]').textContent = pad2(VITRINA.length);
-  }
-  function setVActive(i, prog) {
-    if (prog !== undefined) vSec.style.setProperty('--vp', (8 + prog * 92).toFixed(1) + '%');
-    if (i === vActive) return;
-    vActive = i;
-    vSlides.forEach((s, k) => s.classList.toggle('is-active', k === i));
-    vSec.style.setProperty('--vt', VITRINA[i].tint);
-    $('[data-v-cur]').textContent = pad2(i + 1);
-  }
-  if (vSec) setVActive(0, 0);
+  if (vSec) {
+    const N = VITRINA.length, DUR = 6000;
+    const story = $('[data-story]'), media = $('[data-v-media]'), bars = $('[data-v-bars]'), bub = $('[data-v-bubbles]'), pan = $('[data-v-pan]');
+    story.style.setProperty('--vdur', DUR + 'ms');
+    media.innerHTML = VITRINA.map((v, i) =>
+      `<img class="story__img" src="img/menu/${v.photo}-800.webp" srcset="img/menu/${v.photo}-480.webp 480w, img/menu/${v.photo}-800.webp 800w" sizes="(min-width:1024px) 440px, 92vw" alt="${esc(v.name)}" width="800" height="1000"${i ? ' loading="lazy"' : ''} decoding="async">`).join('');
+    bars.innerHTML = VITRINA.map(() => '<i><b></b></i>').join('');
+    bub.innerHTML = VITRINA.map((v, i) =>
+      `<button class="vbub__b" type="button" data-v-go="${i}"><span><img src="img/menu/${v.photo}-480.webp" alt="" width="480" height="600" loading="lazy" decoding="async"></span>${esc(v.short || v.word || v.name)}</button>`).join('');
+    const imgs = $$('.story__img', media), barEls = $$('i', bars), bubEls = $$('.vbub__b', bub);
+    let cur = -1;
 
-  let vDist = 0;
-  function layoutVitrina() {
-    if (!vSec) return;
-    const pin = isDesktop() && !reduceMotion;
-    vSec.classList.toggle('is-pinned', pin);
-    if (pin) {
-      vTrack.style.transform = '';
-      const first = vSlides[0], last = vSlides[vSlides.length - 1];
-      vDist = last.offsetLeft - first.offsetLeft;
-      vSec.style.height = (vDist * 0.62 + window.innerHeight) + 'px';
-    } else {
-      vSec.style.height = '';
-      vTrack.style.transform = '';
+    const firstSentence = t => (t.match(/^.+?[.!?](\s|$)/) || [t])[0].trim();
+    const paintPanel = v => {
+      const it = byId[v.id];
+      const n = v.flavors ? v.flavors.length : 0;
+      const meta = esc(v.tag) + (n ? ` · ${n} ${plural(n, 'вкус', 'вкуса', 'вкусов')}` : '');
+      const btn = v.action === 'wa'
+        ? `<a class="btn btn--accent btn--block" href="${waLink(v.wa)}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>${esc(v.btn)}</a>`
+        : `<button class="btn btn--accent btn--block" type="button" data-add="${v.id}"><svg><use href="#i-plus"/></svg>${esc(v.btn)}${it && it.price ? ' · ' + rub(it.price) : ''}</button>`;
+      pan.innerHTML = `<small>${meta}</small><h3>${esc(v.name)}</h3><p>${esc(firstSentence(v.line))}</p>${btn}`;
+    };
+    const show = i => {
+      cur = (i + N) % N;
+      const v = VITRINA[cur];
+      imgs.forEach((im, k) => im.classList.toggle('is-on', k === cur));
+      barEls.forEach(el => el.classList.remove('is-on'));
+      void bars.offsetWidth; // перезапуск заполнения полоски
+      barEls.forEach((el, k) => { el.classList.toggle('is-done', k < cur); el.classList.toggle('is-on', k === cur); });
+      bubEls.forEach((el, k) => { el.classList.toggle('is-on', k === cur); el.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
+      const bb = bubEls[cur];
+      if (bub.scrollWidth > bub.clientWidth) bub.scrollTo({ left: bb.offsetLeft - (bub.clientWidth - bb.offsetWidth) / 2, behavior: reduceMotion ? 'auto' : 'smooth' });
+      vSec.style.setProperty('--vt', v.tint);
+      paintPanel(v);
+    };
+    show(0);
+    $('[data-v-next]').addEventListener('click', () => show(cur + 1));
+    $('[data-v-prev]').addEventListener('click', () => show(cur - 1));
+    bub.addEventListener('click', e => { const b = e.target.closest('[data-v-go]'); if (b) show(+b.dataset.vGo); });
+
+    // Сама листается, только когда сторис на экране и вкладка открыта
+    if (!reduceMotion) {
+      bars.addEventListener('animationend', e => { if (e.target.parentNode === barEls[cur]) show(cur + 1); });
+      let inView = false;
+      const setPause = () => story.classList.toggle('is-paused', !inView || document.hidden);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(es => { inView = es[0].isIntersecting; setPause(); }, { threshold: 0.4 }).observe(story);
+      } else { inView = true; setPause(); }
+      document.addEventListener('visibilitychange', setPause);
     }
-  }
-  // Телефон: лента листается пальцем, активный слайд — тот, что в центре
-  if (vTrack) {
-    vTrack.addEventListener('scroll', () => {
-      if (vSec.classList.contains('is-pinned')) return;
-      const mid = vTrack.scrollLeft + vTrack.clientWidth / 2;
-      let best = 0, bd = Infinity;
-      vSlides.forEach((s, k) => { const d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = k; } });
-      const max = vTrack.scrollWidth - vTrack.clientWidth;
-      setVActive(best, max > 0 ? vTrack.scrollLeft / max : 0);
-    }, { passive: true });
   }
 
   /* ================================================================
@@ -238,7 +253,6 @@
   /* ================================================================
      Движение по прокрутке: один обработчик на всё
      ================================================================ */
-  const hero = $('[data-hero]');
   const room = $('[data-expand]');
   const cakes = $('[data-box]');
   const steps = $$('[data-step]');
@@ -251,15 +265,6 @@
     const sticky = el => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - vh)); };
     const view = (el, a = 1, b = 0) => { const r = el.getBoundingClientRect(); return clamp((vh * a - r.top) / (r.height + vh * (a - b))); };
 
-    if (hero && !reduceMotion) {
-      const r = hero.getBoundingClientRect();
-      if (r.bottom > 0) hero.style.setProperty('--hp', clamp(-r.top / r.height).toFixed(3));
-    }
-    if (vSec && vSec.classList.contains('is-pinned')) {
-      const p = sticky(vSec);
-      vTrack.style.transform = `translate3d(${(-p * vDist).toFixed(1)}px,0,0)`;
-      setVActive(Math.round(p * (vSlides.length - 1)), p);
-    }
     if (magicWords.length) {
       const p = view(magic, 0.88, 0.45);
       const n = magicWords.length;
@@ -271,19 +276,20 @@
       room.style.setProperty('--p2', clamp((p - 0.45) / 0.35).toFixed(3));
     }
     if (cakes) {
-      const p = isDesktop() ? sticky(cakes) : view(cakes, 1, 0.3);
-      const q = reduceMotion ? 1 : clamp(p / 0.55);
+      // лента «завязывается» слева направо, пока фото торта поднимается по экрану
+      const r = $('.cakes__pic', cakes).getBoundingClientRect();
+      const q = reduceMotion ? 1 : clamp((vh - r.top - r.height * 0.45) / (vh * 0.4));
       cakes.style.setProperty('--p', q.toFixed(3));
-      steps.forEach((s, k) => s.classList.toggle('is-on', reduceMotion || p > 0.15 + k * 0.17));
+      steps.forEach(s => { if (reduceMotion || s.getBoundingClientRect().top < vh * 0.9) s.classList.add('is-on'); });
     }
     if (constel && isDesktop() && !reduceMotion) constel.style.setProperty('--p', view(constel).toFixed(3));
   }
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
   window.addEventListener('scroll', onScroll, { passive: true });
   let rT;
-  window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { layoutVitrina(); frame(); }, 120); });
-  window.addEventListener('load', () => { layoutVitrina(); frame(); });
-  layoutVitrina(); frame();
+  window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { buildHeroRug(); frame(); }, 120); });
+  window.addEventListener('load', frame);
+  frame();
 
   /* ================================================================
      Корзина
@@ -468,7 +474,7 @@
   const stShort = $('[data-status-short]');
   if (stShort) {
     stShort.textContent = isOpen ? 'Открыто до 00:00' : 'Откроемся в 08:00';
-    const dot = $('.hero__kicker .dot');
+    const dot = $('.hero__meta .dot');
     if (dot) dot.classList.toggle('is-closed', !isOpen);
   }
 

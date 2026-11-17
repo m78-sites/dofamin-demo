@@ -156,7 +156,7 @@ const VITRINA = [
     flavors: ['Буэно', 'Клубника', 'Фисташка и малина', 'Черника', 'Дубайская начинка', 'Кокосовый Bounty', 'Манго', 'Ананас', 'Тути фрути'],
     action: 'wa', btn: 'Забронировать моти',
     wa: 'Здравствуйте! Хочу забронировать моти-кейки. Какие вкусы есть сегодня?' },
-  { id: 'kinder', photo: 'kinder-bueno', tag: 'Новинка', tint: '#47291a', word: 'XXL',
+  { id: 'kinder', photo: 'kinder-bueno', tag: 'Новинка', tint: '#47291a', word: 'XXL', short: 'Kinder',
     name: 'Огромный Kinder Bueno',
     line: 'Да-да, тот самый, только в XXL-формате!',
     action: 'wa', btn: 'Заказать в WhatsApp',

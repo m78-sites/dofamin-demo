@@ -22,9 +22,8 @@
 <link rel="preload" href="fonts/playfair-display-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/manrope-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="img/cut/korpusnoe-malina-900.webp">
-<link rel="preload" as="image" href="img/logo-dofa.webp">
-<link rel="stylesheet" href="css/style.css?v=14">
+<link rel="preload" as="image" href="img/logo-dofamin.webp">
+<link rel="stylesheet" href="css/style.css?v=16">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">
 {
@@ -107,38 +106,19 @@
 
 <main id="top">
 
-  <!-- 1. Первый экран. Приём Henrietta Said (Awwwards): огромная надпись столбиком, перед ней вырезанный продукт и круглая наклейка-кнопка.
-       DOFA — красными нитями, MIN — синими, как на их аватаре. Текст — на сплошном тёмном фоне. -->
+  <!-- 1. Первый экран: ковёр из строк DOFAMIN на весь экран, как на их аватаре — ряды едут навстречу друг другу.
+       Поверх — светлый тканый ярлык с пунктирной строчкой: логотип, заголовок и одна кнопка. Текст на сплошном фоне — читается всегда. -->
   <section class="hero" aria-labelledby="hero-title" data-hero>
-    <div class="wrap hero__grid">
-      <div class="hero__brand" aria-hidden="true">
-        <div class="woven woven--dofa"><div class="woven__fill" data-woven></div></div>
-        <div class="hero__row2">
-          <div class="woven woven--min"><div class="woven__fill" data-woven></div></div>
-        </div>
-        <img class="hero__cut" src="img/cut/korpusnoe-malina-900.webp" alt="" width="646" height="605" fetchpriority="high">
-        <a class="sticker" href="#menu" tabindex="-1">
-          <svg class="sticker__ring" viewBox="0 0 120 120"><defs><path id="stk" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#stk">смотреть меню · смотреть меню · </textPath></text></svg>
-          <svg class="sticker__arrow"><use href="#i-arrow-ne"/></svg>
-        </a>
+    <div class="hero__rug" data-hero-rug aria-hidden="true"></div>
+    <div class="hero__in">
+      <div class="hero__label">
+        <div class="hero__logo" role="img" aria-label="DOFAMIN"></div>
+        <h1 id="hero-title" class="hero__title">Твой ежедневный дофамин — здесь и&nbsp;сейчас</h1>
+        <p class="hero__meta">Кофейня и кондитерская · Лорсанова, 5<br><span class="dot"></span><span data-status-short>Открыто до 00:00</span></p>
+        <a class="hero__btn" href="#menu">Открыть меню<svg><use href="#i-arrow"/></svg></a>
       </div>
-
-      <div class="hero__copy">
-        <p class="hero__kicker"><span class="dot"></span><span data-status-short>Открыто до 00:00</span><span class="sep">·</span>Лорсанова, 5</p>
-        <h1 id="hero-title" class="manifest">
-          <span class="ln">Твой ежедневный</span>
-          <span class="ln"><span class="chip chip--a"><img src="img/menu/moti-480.webp" alt="" width="480" height="600"></span>дофамин&nbsp;—</span>
-          <span class="ln">здесь <span class="chip chip--b"><img src="img/menu/kruassan-morozhenoe-480.webp" alt="" width="480" height="600"></span> и&nbsp;сейчас</span>
-        </h1>
-        <p class="hero__lead">Кофейня и кондитерская в Грозном: моти-кейки, корпусные десерты, торты на заказ, завтраки и кофе.</p>
-        <div class="hero__cta">
-          <a class="btn btn--accent" href="#menu">Открыть меню<span class="btn__ico"><svg><use href="#i-arrow"/></svg></span></a>
-          <a class="btn btn--glass" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa><svg><use href="#i-wa"/></svg>Заказать в WhatsApp</a>
-        </div>
-      </div>
+      <p class="hero__wa">или <a href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa>написать в WhatsApp</a></p>
     </div>
-
-    <div class="hero__edge" data-rug-band="2" aria-hidden="true"></div>
   </section>
 
   <!-- 2. Бегущая строка их фраз -->
@@ -152,18 +132,23 @@
     </div>
   </div>
 
-  <!-- 3. Витрина: горизонтальная лента, фон перекрашивается под десерт -->
+  <!-- 3. Витрина как сторис в их Instagram: кружки сверху, большое фото, полоски — какой десерт сейчас.
+       Листается сама, когда блок на экране. Нажатие справа — следующий десерт, слева — предыдущий. -->
   <section class="vitrina" id="vitrina" aria-labelledby="v-title" data-vitrina>
-    <div class="vitrina__sticky">
+    <div class="wrap vitrina__in">
       <div class="vitrina__head">
-        <div>
-          <p class="label">Сейчас на витрине</p>
-          <h2 id="v-title">Витрина</h2>
-        </div>
-        <div class="vitrina__count" aria-hidden="true"><b data-v-cur>01</b><span>/</span><span data-v-total>06</span></div>
+        <p class="label">Сейчас на витрине</p>
+        <h2 id="v-title">Витрина</h2>
       </div>
-      <div class="vitrina__track" data-v-track></div>
-      <div class="vitrina__bar" aria-hidden="true"><span data-v-bar></span></div>
+      <div class="vbub" data-v-bubbles></div>
+      <div class="story is-paused" data-story aria-roledescription="карусель" aria-label="Десерты на витрине">
+        <div class="story__media" data-v-media></div>
+        <div class="story__bars" data-v-bars aria-hidden="true"></div>
+        <p class="story__who" aria-hidden="true"><b>D</b>dofamincake</p>
+        <button class="story__tap story__tap--prev" type="button" data-v-prev aria-label="Предыдущий десерт"></button>
+        <button class="story__tap story__tap--next" type="button" data-v-next aria-label="Следующий десерт"><svg><use href="#i-arrow"/></svg></button>
+        <div class="story__pan" data-v-pan></div>
+      </div>
     </div>
   </section>
 
@@ -234,15 +219,13 @@
     </div>
   </section>
 
-  <!-- 7. Торты: коробка выезжает и выпрямляется, вокруг — надпись с ленты -->
+  <!-- 7. Торты: их бордовая лента с коробки «DOFAMIN coffee & pastry» бежит наискосок через фото торта
+       и «завязывается» при прокрутке. -->
   <section class="cakes" id="cakes" aria-labelledby="cakes-title" data-box>
-    <div class="cakes__sticky">
-      <div class="cakes__stage">
-        <svg class="ring" viewBox="0 0 400 400" aria-hidden="true" data-ring>
-          <defs><path id="ringpath" d="M200,200 m-170,0 a170,170 0 1,1 340,0 a170,170 0 1,1 -340,0"/></defs>
-          <text><textPath href="#ringpath">DOFAMIN · coffee &amp; pastry · торты на заказ · DOFAMIN · coffee &amp; pastry · торты на заказ ·</textPath></text>
-        </svg>
-        <img class="cakes__box" src="img/tort-korobka.webp" alt="Торт в фирменной коробке DOFAMIN с бордовой лентой" width="720" height="900" loading="lazy" data-box-img>
+    <div class="wrap cakes__in">
+      <div class="cakes__pic">
+        <img src="img/tort-korobka.webp" alt="Торт в фирменной коробке DOFAMIN с бордовой лентой" width="720" height="900" loading="lazy" decoding="async">
+        <div class="cakes__rib" aria-hidden="true"><div class="cakes__ribt" data-rib></div></div>
       </div>
       <div class="cakes__text">
         <p class="label">Торты на заказ</p>
@@ -373,8 +356,8 @@
 
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 
-<script src="js/menu-data.js?v=12"></script>
+<script src="js/menu-data.js?v=13"></script>
 <script src="js/cutouts.js?v=1"></script>
-<script src="js/app.js?v=16"></script>
+<script src="js/app.js?v=18"></script>
 </body>
 </html>

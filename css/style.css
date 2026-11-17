@@ -1,4 +1,4 @@
-/* DOFAMIN — демо-сайт, версия 2.
+/* DOFAMIN — демо-сайт, версия 4.
    Палитра и шрифты — их брендбук (05 Дизайн и печать/Брендбук DOFAMIN.md).
    Приёмы подачи — из каталогов (07 Референсы/Идеи из каталогов…). */
 
@@ -34,6 +34,11 @@
   --rug-red:#9a393b;
   --rug-blue:#3e6585;
   --rug-bg:#2e1413;
+  --cream:#f2e7da;         /* ярлык на первом экране */
+  --cream-ink:#3d0b11;
+  --cream-muted:#6b4a45;   /* на --cream: 6,6:1 */
+  --ribbon:#6a1522;        /* лента с коробки торта */
+  --ribbon-ink:#f2e2d2;
   --glass:rgba(26,11,10,.46);
   --glass-line:rgba(244,235,225,.18);
 
@@ -155,62 +160,38 @@ ul,ol{margin:0;padding:0;list-style:none}
 [data-rug-band] svg{height:100%;width:auto;min-width:100%}
 
 /* ——— 1. Первый экран ———
-   Приём Henrietta Said: надпись огромная и столбиком, продукт стоит перед ней, круглая наклейка-кнопка.
-   Весь текст на сплошном тёмном фоне — читается на любом экране. */
-.hero{position:relative;background:var(--bg-deep);padding-top:calc(var(--hdr-h) + var(--s5));overflow:hidden}
-.hero__grid{display:grid;gap:var(--s6);padding-bottom:var(--s7)}
-.hero__brand{position:relative;padding-bottom:10%}
-.hero .woven--dofa{aspect-ratio:824/286;background:url(../img/logo-dofa.webp) center/contain no-repeat}
-.hero .woven--min{aspect-ratio:362/286;background:url(../img/logo-min.webp) center/contain no-repeat;flex:none;width:43.9%}
-@supports ((mask-image:url("")) or (-webkit-mask-image:url(""))){
-  .hero .woven--dofa{background:none;-webkit-mask:url(../img/logo-dofa.webp) center/contain no-repeat;mask:url(../img/logo-dofa.webp) center/contain no-repeat}
-  .hero .woven--min{background:none;-webkit-mask:url(../img/logo-min.webp) center/contain no-repeat;mask:url(../img/logo-min.webp) center/contain no-repeat}
-}
-/* DOFA — красные нити, MIN — синие, как на аватаре */
-.hero .woven--dofa .woven__fill{background:#5b1a20}
-.hero .woven--min .woven__fill{background:#19304a}
-.woven--dofa .rug .r{fill:#d0605d}
-.woven--dofa .rug .b{fill:#a8383c}
-.woven--min .rug .r{fill:#7aa6cc}
-.woven--min .rug .b{fill:#4b7aa3}
-.woven .row{animation:weavein 1.1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 70ms + 100ms)}
-@keyframes weavein{from{transform:translateX(calc(var(--dir) * -900px));opacity:0}}
-.hero__row2{display:flex;justify-content:flex-end;margin-top:1.5%}
-.hero__cut{position:absolute;left:-2%;bottom:0;width:56%;height:auto;filter:drop-shadow(0 26px 30px rgba(0,0,0,.6));transform:translateY(calc(var(--hp,0) * -30px)) rotate(-8deg);transform-origin:50% 80%;animation:cutin 1.1s var(--e-out) .35s both}
-@keyframes cutin{from{opacity:0;transform:translateY(40px) rotate(-22deg) scale(.8)}}
-.sticker{position:absolute;right:0;bottom:-16%;width:clamp(84px,24vw,128px);aspect-ratio:1;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--ink);box-shadow:var(--sh-2);text-decoration:none;transition:transform var(--d-base) var(--e-out),background-color var(--d-fast) var(--e);animation:stickin .8s var(--e-out) .8s both}
-@keyframes stickin{from{opacity:0;transform:scale(.4) rotate(-40deg)}}
-.sticker:hover{background:var(--accent-hover);transform:scale(1.06)}
-.sticker__ring{position:absolute;inset:0;width:100%;height:100%;fill:var(--ink);animation:spin 18s linear infinite}
-.sticker__ring text{font-family:var(--f-text);font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
-.sticker__arrow{width:30%;height:30%}
-@keyframes spin{to{transform:rotate(360deg)}}
-.hero__copy{display:flex;flex-direction:column;gap:var(--s5)}
-.hero__kicker{display:inline-flex;align-items:center;gap:var(--s2);align-self:flex-start;padding:6px 14px;border-radius:var(--r-pill);background:rgba(244,235,225,.06);border:1px solid var(--line);font-size:13px;font-weight:500}
-.hero__kicker .dot{width:7px;height:7px;border-radius:50%;background:#7cc489;box-shadow:0 0 0 4px rgba(124,196,137,.18)}
-.hero__kicker .dot.is-closed{background:var(--accent-text);box-shadow:0 0 0 4px rgba(210,106,108,.2)}
-.hero__kicker .sep{color:var(--muted)}
-.manifest{font-size:var(--t-hero);line-height:1.02;letter-spacing:-.02em}
-.manifest .ln{display:block}
-.js .manifest .ln{animation:rise .9s var(--e-out) both}
-.manifest .ln:nth-child(2){animation-delay:.12s}
-.manifest .ln:nth-child(3){animation-delay:.24s}
-@keyframes rise{from{transform:translateY(60%);opacity:0}}
-.chip{display:inline-block;width:1.32em;height:.8em;margin:0 .14em;vertical-align:-.06em;border-radius:var(--r-pill);overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.45);transition:width var(--d-slow) var(--e-out);animation:chipin .8s var(--e-out) both;animation-delay:.7s}
-.chip--b{animation-delay:.85s}
-.chip img{width:100%;height:100%;object-fit:cover;transition:transform var(--d-slow) var(--e-out)}
-.chip:hover{width:2.1em}
-.chip:hover img{transform:scale(1.06)}
-@keyframes chipin{from{width:0;opacity:0}}
-.hero__lead{color:#dccbc1;font-size:clamp(16px,1.2vw,19px);max-width:30em}
-.hero__cta{display:flex;flex-wrap:wrap;gap:var(--s3)}
-.hero__edge{position:relative;height:30px;opacity:.85}
-@media (min-width:1024px){
-  .hero__grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:center;gap:var(--s9);min-height:calc(100svh - var(--hdr-h) - 64px);padding-bottom:var(--s8)}
-  .hero__brand{order:2}
-  .hero__copy{order:1}
-  .manifest .ln{white-space:nowrap}
-}
+   Ковёр из строк DOFAMIN на весь экран — как на их аватаре: ряды через один перевёрнуты и едут навстречу.
+   Каждый ряд — отдельный слой, двигается сдвигом без перерисовки. Поверх — светлый тканый ярлык
+   с пунктирной строчкой: весь текст на сплошном фоне, читается на любом экране. */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;padding:calc(var(--hdr-h) + var(--s5)) var(--m-x) var(--s8);background:var(--bg-deep);overflow:hidden;isolation:isolate}
+.hero__rug{position:absolute;inset:0;z-index:-1;display:grid;grid-template-rows:repeat(var(--rows,13),minmax(0,1fr));opacity:.55;animation:fadein 1.4s var(--e) both}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(26,11,10,.45);pointer-events:none}
+.hrow{min-height:0}
+.hrow.is-flip{transform:scaleY(-1)}
+.hrow__t{display:flex;width:max-content;height:100%;animation:hrug var(--dur,40s) linear infinite;will-change:transform}
+.hrow.is-flip .hrow__t{animation-direction:reverse}
+.hrow__t svg{flex:none;height:100%;width:auto}
+@keyframes hrug{to{transform:translateX(-50%)}}
+@keyframes fadein{from{opacity:0}}
+.hero__in{width:100%;max-width:520px;display:flex;flex-direction:column;align-items:center;gap:var(--s6)}
+.hero__label{position:relative;width:100%;padding:var(--s6) var(--s5) 26px;background:var(--cream);color:var(--cream-ink);border-radius:6px;box-shadow:var(--sh-3);text-align:center;transform:rotate(-2.5deg);animation:labelin 1s var(--e-out) .2s both}
+.hero__label::before{content:"";position:absolute;inset:8px;border:1.5px dashed rgba(74,14,20,.45);border-radius:3px;pointer-events:none}
+@keyframes labelin{from{opacity:0;transform:translateY(32px) rotate(-8deg)}}
+.hero__logo{width:72%;max-width:300px;aspect-ratio:1198/286;margin:0 auto 18px;background:var(--wine);-webkit-mask:url(../img/logo-dofamin.webp) center/contain no-repeat;mask:url(../img/logo-dofamin.webp) center/contain no-repeat}
+.hero__title{font-size:clamp(30px,8.4vw,48px);line-height:1.08;letter-spacing:-.01em;color:var(--cream-ink);text-wrap:balance}
+.hero__meta{margin-top:var(--s3);font-size:14px;line-height:1.6;color:var(--cream-muted)}
+.hero__meta .dot{display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:#3f9a52;vertical-align:1px}
+.hero__meta .dot.is-closed{background:var(--accent)}
+.hero__btn{position:relative;margin-top:var(--s5);display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:var(--r-pill);background:var(--wine);color:var(--ink);font-size:15px;font-weight:600;text-decoration:none;transition:background-color var(--d-fast) var(--e),transform var(--d-fast) var(--e)}
+.hero__btn svg{width:18px;height:18px;transition:transform var(--d-base) var(--e)}
+.hero__btn:hover{background:var(--accent-hover)}
+.hero__btn:hover svg{transform:translateX(3px)}
+.hero__btn:active{transform:scale(.97)}
+.hero__btn:focus-visible{outline-color:var(--wine)}
+.hero__wa{font-size:14px;color:var(--ink);animation:fadein 1s var(--e) .6s both}
+.hero__wa a{display:inline-block;padding:10px 0 2px;text-decoration:none;border-bottom:1px solid var(--line-2)}
+.hero__wa a:hover{border-color:var(--ink)}
+@media (min-width:1024px){.hero__in{max-width:560px}.hero__label{padding:var(--s7) var(--s7) var(--s6)}}
 .stars{display:flex;gap:2px;color:var(--accent-text)}
 .stars svg{width:15px;height:15px}
 
@@ -221,43 +202,56 @@ ul,ol{margin:0;padding:0;list-style:none}
 .marquee__track svg{width:22px;height:27px;color:var(--rug-red);flex:none}
 @keyframes marq{to{transform:translateX(-50%)}}
 
-/* ——— 3. Витрина ——— */
-.vitrina{position:relative;background:var(--vt,#4f2431);transition:background-color .7s var(--e)}
-.vitrina__sticky{padding:var(--s8) 0 var(--s7);overflow:hidden}
-.vitrina__head{width:100%;max-width:var(--maxw);margin:0 auto var(--s6);padding:0 var(--m-x);display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s5)}
-.vitrina__head h2{font-size:var(--t-h2)}
-.vitrina__count{font-family:var(--f-display);font-size:clamp(22px,2.4vw,34px);color:var(--muted);white-space:nowrap}
-.vitrina__count b{font-weight:400;color:var(--ink)}
-.vitrina__count span{margin-left:6px}
-.vitrina__track{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--m-x) var(--s2);scrollbar-width:none;overscroll-behavior-x:contain}
-.vitrina__track::-webkit-scrollbar{display:none}
-.vslide{flex:none;width:84vw;max-width:440px;scroll-snap-align:center;display:flex;flex-direction:column;gap:var(--s5);transition:opacity var(--d-slow) var(--e),transform var(--d-slow) var(--e-out)}
-.vslide:not(.is-active){opacity:.45;transform:scale(.96)}
-/* афиша (Henrietta Said): огромное слово за продуктом, продукт вырезан и «висит» поверх */
-.vposter{position:relative;aspect-ratio:4/5;border-radius:var(--r-card);overflow:hidden;container-type:inline-size;background:rgba(0,0,0,.14);display:grid;place-items:center;isolation:isolate}
-.vposter__word{position:absolute;inset:0;z-index:-1;display:grid;place-items:center;font-family:var(--f-display);font-size:min(calc(92cqi / (var(--len) * .74)),44cqi);line-height:.9;text-transform:uppercase;letter-spacing:-.02em;color:rgba(244,235,225,.24);white-space:nowrap;transition:transform 1.2s var(--e-out)}
-.vposter__cut{width:84%;height:84%;object-fit:contain;filter:drop-shadow(0 30px 34px rgba(0,0,0,.55));transform:rotate(-6deg) scale(.94);transition:transform 1.2s var(--e-out)}
-.vslide.is-active .vposter__cut{transform:rotate(-3deg) scale(1)}
-.vslide.is-active .vposter__word{transform:scale(1.04)}
-.vslide__tag{position:absolute;top:var(--s4);left:var(--s4);padding:5px 12px;border-radius:var(--r-pill);background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
-.vslide__body{display:flex;flex-direction:column;gap:var(--s4)}
-.vslide__num{font-family:var(--f-display);font-style:italic;font-size:20px;color:var(--muted)}
-.vslide__name{font-size:clamp(34px,4.6vw,76px);line-height:1}
-.vslide__line{color:#e2d3ca;max-width:30em}
-.vslide__foot{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s4);margin-top:var(--s2)}
-.vslide__price{font-family:var(--f-display);font-size:30px}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips li{font-size:12.5px;padding:4px 11px;border:1px solid rgba(244,235,225,.3);border-radius:var(--r-pill)}
-.vitrina__bar{max-width:var(--maxw);margin:var(--s6) auto 0;padding:0 var(--m-x)}
-.vitrina__bar span{display:block;height:2px;background:linear-gradient(90deg,var(--ink) var(--vp,16%),rgba(244,235,225,.2) var(--vp,16%))}
-/* ПК: блок закреплён, лента едет вбок при прокрутке */
+/* ——— 3. Витрина как сторис ———
+   Как в их Instagram: кружки-хайлайты, большое фото и полоски сверху. Фон перекрашивается под десерт. */
+.vitrina{position:relative;padding:var(--s8) 0;background:var(--vt,#4f2431);transition:background-color .7s var(--e)}
+.vitrina__in{display:flex;flex-direction:column;gap:var(--s5)}
+.vitrina__head h2{font-size:var(--t-h2);margin-top:var(--s2)}
+.vbub{position:relative;display:flex;gap:var(--s3);margin:0 calc(var(--m-x) * -1);padding:2px var(--m-x);overflow-x:auto;scrollbar-width:none}
+.vbub::-webkit-scrollbar{display:none}
+.vbub__b{flex:none;width:68px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;line-height:1.3;color:var(--muted);transition:color var(--d-base) var(--e)}
+.vbub__b span{display:block;width:68px;height:68px;padding:3px;border-radius:50%;border:2px solid rgba(244,235,225,.25);transition:border-color var(--d-base) var(--e),transform var(--d-base) var(--e-out)}
+.vbub__b img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.vbub__b:hover span{transform:scale(1.05)}
+.vbub__b.is-on{color:var(--ink)}
+.vbub__b.is-on span{border-color:var(--accent-text)}
+.story{position:relative;height:clamp(500px,148vw,600px);border-radius:var(--r-card);overflow:hidden;background:#000;box-shadow:var(--sh-3);isolation:isolate}
+.story__media{position:absolute;inset:0}
+.story__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .5s var(--e),transform 6.5s linear}
+.story__img.is-on{opacity:1;transform:none}
+.story::before{content:"";position:absolute;inset:0 0 auto;height:96px;z-index:1;background:linear-gradient(rgba(0,0,0,.42),transparent);pointer-events:none}
+.story__bars{position:absolute;top:10px;left:10px;right:10px;z-index:2;display:flex;gap:4px}
+.story__bars i{flex:1;height:3px;border-radius:2px;background:rgba(244,235,225,.32);overflow:hidden}
+.story__bars b{display:block;height:100%;background:var(--ink);transform:scaleX(0);transform-origin:0 50%}
+.story__bars i.is-done b{transform:none}
+.story__bars i.is-on b{animation:vfill var(--vdur,6s) linear forwards}
+.story.is-paused .story__bars b{animation-play-state:paused}
+@keyframes vfill{to{transform:none}}
+.story__who{position:absolute;top:22px;left:12px;z-index:2;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink)}
+.story__who b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--rug-bg);color:var(--rug-red);font:400 15px var(--f-display)}
+.story__tap{position:absolute;top:0;bottom:0;z-index:2;-webkit-tap-highlight-color:transparent}
+.story__tap--prev{left:0;width:32%}
+.story__tap--next{right:0;width:68%}
+.story__tap--next svg{position:absolute;right:12px;top:38%;width:40px;height:40px;padding:11px;border-radius:50%;background:rgba(26,11,10,.5);color:var(--ink);transition:transform var(--d-base) var(--e-out)}
+.story__tap--next:hover svg{transform:translateX(3px)}
+.story__tap:focus-visible{outline-offset:-4px}
+.story__pan{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;flex-direction:column;gap:var(--s2);padding:18px var(--s4) var(--s4);background:rgba(26,11,10,.94)}
+.story__pan > *{animation:panin .5s var(--e-out) both}
+.story__pan > :nth-child(2){animation-delay:.05s}
+.story__pan > :nth-child(3){animation-delay:.1s}
+@keyframes panin{from{opacity:0;transform:translateY(10px)}}
+.story__pan small{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-text)}
+.story__pan h3{font-size:30px;line-height:1.05}
+.story__pan p{font-size:14px;line-height:1.5;color:var(--muted)}
+.story__pan .btn{margin-top:6px}
 @media (min-width:1024px){
-  .vitrina.is-pinned .vitrina__sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;padding:calc(var(--hdr-h) + var(--s5)) 0 var(--s6)}
-  .vitrina.is-pinned .vitrina__track{overflow:visible;scroll-snap-type:none;will-change:transform;padding-left:max(var(--m-x),calc((100vw - var(--maxw)) / 2 + var(--m-x)))}
-  .vslide{width:min(1060px,76vw);max-width:none;flex-direction:row;align-items:center;gap:var(--s8)}
-  .vposter{flex:none;height:min(62vh,620px);width:auto}
-  .vslide__body{flex:1;max-width:520px}
-  .vitrina__track{gap:var(--s9)}
+  .vitrina{padding:var(--s9) 0}
+  .vitrina__in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);grid-template-areas:"head story" "bub story";grid-template-rows:auto 1fr;column-gap:var(--s9);row-gap:var(--s7)}
+  .vitrina__head{grid-area:head}
+  .vbub{grid-area:bub;flex-wrap:wrap;align-content:flex-start;gap:var(--s4);margin:0;padding:0;overflow:visible}
+  .vbub__b{width:96px;font-size:13px}
+  .vbub__b span{width:96px;height:96px}
+  .story{grid-area:story;height:640px}
 }
 
 /* ——— 4. Каталог ———
@@ -347,13 +341,18 @@ ul,ol{margin:0;padding:0;list-style:none}
   .room__frame::after{background:linear-gradient(180deg,rgba(14,22,28,.15) 0%,rgba(14,22,28,.65) 45%,rgba(14,22,28,.96) 100%)}
 }
 
-/* ——— 7. Торты ——— */
-.cakes{position:relative;height:210vh;background:var(--bg-deep)}
-.cakes__sticky{position:sticky;top:0;min-height:100vh;display:grid;align-content:center;gap:var(--s6);max-width:var(--maxw);margin:0 auto;padding:calc(var(--hdr-h) + var(--s4)) var(--m-x) var(--s6)}
-.cakes__stage{position:relative;width:min(78vw,440px);aspect-ratio:1;margin:0 auto;display:grid;place-items:center}
-.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(calc(var(--p,0) * 160deg));fill:var(--muted)}
-.ring text{font-family:var(--f-text);font-size:15px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
-.cakes__box{position:relative;width:58%;border-radius:var(--r-card);box-shadow:var(--sh-3);transform:translateY(calc((1 - var(--p,0)) * 28vh)) rotate(calc((1 - var(--p,0)) * -16deg)) scale(calc(.72 + var(--p,0) * .28));opacity:calc(.25 + var(--p,0) * 1.5)}
+/* ——— 7. Торты ———
+   Их бордовая лента с коробки «DOFAMIN coffee & pastry» бежит наискосок через фото торта
+   и «завязывается» (проявляется слева направо) при прокрутке. */
+.cakes{position:relative;padding:var(--s9) 0;background:var(--bg-deep);overflow:hidden}
+.cakes__in{display:grid;gap:var(--s7)}
+.cakes__pic{position:relative;margin:0 10px}
+.cakes__pic img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r-card);box-shadow:var(--sh-3)}
+.cakes__rib{position:absolute;left:-40%;right:-40%;top:58%;height:52px;background:var(--ribbon);transform:rotate(-14deg);overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.35);clip-path:inset(0 calc((1 - var(--p,1)) * 100%) 0 0)}
+.cakes__ribt{display:flex;align-items:center;width:max-content;height:100%;white-space:nowrap;font:600 14px var(--f-text);letter-spacing:.24em;text-transform:uppercase;color:var(--ribbon-ink);animation:rib 26s linear infinite}
+.cakes__ribt > *{margin-right:26px}
+.cakes__ribt b{font-family:var(--f-display);font-weight:400;font-size:21px;letter-spacing:.06em;text-transform:none}
+@keyframes rib{to{transform:translateX(-50%)}}
 .cakes__text{display:flex;flex-direction:column;gap:var(--s5)}
 .cakes__text h2{font-size:clamp(34px,4.4vw,68px)}
 .steps{counter-reset:s;display:grid;gap:0;border-top:1px solid var(--line)}
@@ -361,8 +360,12 @@ ul,ol{margin:0;padding:0;list-style:none}
 .steps li.is-on{opacity:1;transform:none}
 .steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--f-display);font-style:italic;font-size:22px;line-height:1;color:var(--accent-text)}
 .cakes__text .btn{align-self:flex-start}
-@media (min-width:1024px){.cakes__sticky{grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:100vh;gap:var(--s9);align-items:center}.cakes__stage{width:min(40vw,560px)}}
-@media (max-width:1023px){.cakes{height:auto}.cakes__sticky{position:relative;padding-top:var(--s9);padding-bottom:var(--s9)}}
+@media (min-width:1024px){
+  .cakes__in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:var(--s9)}
+  .cakes__pic{margin:0;max-width:520px;border-radius:var(--r-card);overflow:hidden;box-shadow:var(--sh-3)}
+  .cakes__pic img{box-shadow:none}
+  .cakes__rib{left:-20%;right:-20%}
+}
 
 /* ——— 8. Отзывы-созвездие ——— */
 .stars-sec{background:var(--bg);padding:var(--s9) 0}
@@ -514,8 +517,9 @@ dialog::backdrop{background:rgba(10,4,4,.72);-webkit-backdrop-filter:blur(4px);b
   .room{height:auto}.room__sticky{position:relative;height:100vh}
   .room__frame{clip-path:none}.room__frame img{transform:none}
   .room__frame::after,.room__text{opacity:1;transform:none}
-  .cakes{height:auto}.cakes__sticky{position:relative}
-  .cakes__box{transform:none;opacity:1}
+  .hrow__t,.cakes__ribt{animation:none}
+  .cakes__rib{clip-path:none}
+  .story__img{transition:none}
   .steps li{opacity:1;transform:none}
   .magic .w{opacity:1}
 }
