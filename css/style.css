@@ -512,12 +512,15 @@ dialog::backdrop{background:rgba(10,4,4,.72);-webkit-backdrop-filter:blur(4px);b
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:1ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:1ms!important}
   .hero__curtain{display:none}
-  .marquee__track{animation:none}
   .js .reveal{opacity:1;transform:none}
   .room{height:auto}.room__sticky{position:relative;height:100vh}
   .room__frame{clip-path:none}.room__frame img{transform:none}
   .room__frame::after,.room__text{opacity:1;transform:none}
-  .hrow__t,.cakes__ribt{animation:none}
+  /* ковёр, лента и бегущая строка — тихий фон: в этом режиме едут вдвое медленнее, а не стоят.
+     Режим часто включает энергосбережение телефона, а без движения пропадает весь эффект. */
+  .hrow__t{animation-duration:calc(var(--dur,40s) * 2)!important;animation-iteration-count:infinite!important}
+  .cakes__ribt{animation-duration:52s!important;animation-iteration-count:infinite!important}
+  .marquee__track{animation-duration:96s!important;animation-iteration-count:infinite!important}
   .cakes__rib{clip-path:none}
   .story__img{transition:none}
   .steps li{opacity:1;transform:none}
