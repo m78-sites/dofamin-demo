@@ -22,9 +22,9 @@
 <link rel="preload" href="fonts/playfair-display-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/manrope-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="img/hall-wide-1280.webp" imagesrcset="img/hall-wide-1280.webp 1280w, img/hall-wide.webp 1920w" imagesizes="100vw" media="(min-width: 768px)">
-<link rel="preload" as="image" href="img/hero-interer.webp" media="(max-width: 767px)">
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="preload" as="image" href="img/cut/korpusnoe-malina-900.webp">
+<link rel="preload" as="image" href="img/logo-dofa.webp">
+<link rel="stylesheet" href="css/style.css?v=14">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">
 {
@@ -107,16 +107,22 @@
 
 <main id="top">
 
-  <!-- 1. Первый экран: зал на весь экран, ковёр-занавес, манифест с фото в строке -->
+  <!-- 1. Первый экран. Приём Henrietta Said (Awwwards): огромная надпись столбиком, перед ней вырезанный продукт и круглая наклейка-кнопка.
+       DOFA — красными нитями, MIN — синими, как на их аватаре. Текст — на сплошном тёмном фоне. -->
   <section class="hero" aria-labelledby="hero-title" data-hero>
-    <picture class="hero__bg">
-      <source media="(min-width: 768px)" srcset="img/hall-wide-1280.webp 1280w, img/hall-wide.webp 1920w" sizes="100vw">
-      <img src="img/hero-interer.webp" alt="" width="960" height="1280" fetchpriority="high" data-hero-img>
-    </picture>
-    <div class="hero__curtain" data-curtain aria-hidden="true"></div>
-    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="wrap hero__grid">
+      <div class="hero__brand" aria-hidden="true">
+        <div class="woven woven--dofa"><div class="woven__fill" data-woven></div></div>
+        <div class="hero__row2">
+          <div class="woven woven--min"><div class="woven__fill" data-woven></div></div>
+        </div>
+        <img class="hero__cut" src="img/cut/korpusnoe-malina-900.webp" alt="" width="646" height="605" fetchpriority="high">
+        <a class="sticker" href="#menu" tabindex="-1">
+          <svg class="sticker__ring" viewBox="0 0 120 120"><defs><path id="stk" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#stk">смотреть меню · смотреть меню · </textPath></text></svg>
+          <svg class="sticker__arrow"><use href="#i-arrow-ne"/></svg>
+        </a>
+      </div>
 
-    <div class="hero__inner">
       <div class="hero__copy">
         <p class="hero__kicker"><span class="dot"></span><span data-status-short>Открыто до 00:00</span><span class="sep">·</span>Лорсанова, 5</p>
         <h1 id="hero-title" class="manifest">
@@ -130,22 +136,6 @@
           <a class="btn btn--glass" href="https://wa.me/79639887344" target="_blank" rel="noopener" data-wa><svg><use href="#i-wa"/></svg>Заказать в WhatsApp</a>
         </div>
       </div>
-
-      <aside class="bento" aria-label="Коротко">
-        <a class="tile tile--photo" href="#vitrina">
-          <img src="img/menu/moti-480.webp" alt="" width="480" height="600">
-          <span class="tile__cap"><small>Новинка</small>Чизкейк-моти<svg><use href="#i-arrow-ne"/></svg></span>
-        </a>
-        <a class="tile tile--photo tile--box" href="#cakes">
-          <img src="img/tort-korobka.webp" alt="" width="720" height="900">
-          <span class="tile__cap"><small>На заказ</small>Торты в коробке с лентой<svg><use href="#i-arrow-ne"/></svg></span>
-        </a>
-        <div class="tile tile--score">
-          <span class="tile__big">5,0</span>
-          <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
-          <span class="tile__small">12 оценок в 2ГИС</span>
-        </div>
-      </aside>
     </div>
 
     <div class="hero__edge" data-rug-band="2" aria-hidden="true"></div>
@@ -183,14 +173,13 @@
       <div class="shead">
         <p class="label">Десерты · выпечка · завтраки · блюда · напитки</p>
         <h2 id="menu-title" class="shead__title">Меню</h2>
-        <p class="lead">Соберите заказ и отправьте его в WhatsApp: администратор подтвердит и скажет, когда забрать. Нажмите на позицию, чтобы увидеть фото и состав.</p>
+        <p class="lead">Соберите заказ и отправьте его в WhatsApp: администратор подтвердит и скажет, когда забрать. Нажмите на десерт или блюдо, чтобы увидеть фото и состав.</p>
       </div>
     </div>
     <div class="tabs" data-tabs>
       <div class="wrap tabs__row" role="navigation" aria-label="Разделы меню" data-tabs-row></div>
     </div>
     <div class="wrap" data-menu></div>
-    <div class="peek" data-peek aria-hidden="true"></div>
   </section>
 
   <!-- 5. Только в DOFAMIN: текст проявляется по словам -->
@@ -384,7 +373,8 @@
 
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 
-<script src="js/menu-data.js?v=11"></script>
-<script src="js/app.js?v=12"></script>
+<script src="js/menu-data.js?v=12"></script>
+<script src="js/cutouts.js?v=1"></script>
+<script src="js/app.js?v=16"></script>
 </body>
 </html>

@@ -47,29 +47,18 @@
     return `<svg class="rug" viewBox="0 -2 ${vw.toFixed(1)} ${(vh + 4).toFixed(1)}" preserveAspectRatio="${aspect}" aria-hidden="true" focusable="false">${body}</svg>`;
   }
 
-  // Ковёр-занавес на первом экране: ряды расходятся и открывают зал (один раз за визит)
-  const curtain = $('[data-curtain]');
-  let seen = false;
-  try { seen = sessionStorage.getItem('dof-intro') === '1'; } catch (e) { /* приватный режим */ }
-  const finishCurtain = () => { curtain.classList.add('is-done'); try { sessionStorage.setItem('dof-intro', '1'); } catch (e) {} };
-
   function buildRugs() {
-    if (curtain) {
-      if (reduceMotion || seen) finishCurtain();
-      else {
-        curtain.innerHTML = rugSVG({ rows: 10, reps: 6, rowAnim: true, aspect: 'xMidYMid slice' });
-        const rows = $$('.row', curtain);
-        rows[rows.length - 1].addEventListener('animationend', finishCurtain, { once: true });
-        setTimeout(finishCurtain, 2600); // страховка
-      }
-    }
     $$('[data-rug-band]').forEach(el => {
       el.innerHTML = rugSVG({ rows: +el.dataset.rugBand || 2, reps: 22, gap: 40, aspect: 'xMinYMid meet' });
     });
-    const woven = $('[data-woven]');
-    if (woven) {
-      woven.innerHTML = rugSVG({ rows: 6, reps: 5, loop: true, aspect: 'xMinYMid slice' });
-    }
+    // Надпись DOFAMIN, сотканная из ковра. На первом экране нити «вплетаются» в буквы при загрузке.
+    // Число рядов — по высоте надписи, чтобы нити было видно и на телефоне.
+    $$('[data-woven]').forEach(el => {
+      const inHero = !!el.closest('.hero');
+      const h = el.getBoundingClientRect().height || 120;
+      const rows = Math.max(3, Math.min(6, Math.round(h / 34)));
+      el.innerHTML = rugSVG({ rows, reps: 5, loop: true, rowAnim: inHero && !reduceMotion, aspect: 'xMinYMid slice' });
+    });
   }
   const fontsReady = document.fonts && document.fonts.load
     ? Promise.race([document.fonts.load('400 100px Playfair', 'DOFAMIN'), new Promise(r => setTimeout(r, 1200))])
@@ -98,7 +87,11 @@
         ? `<a class="btn btn--accent" href="${waLink(v.wa)}" target="_blank" rel="noopener">${esc(v.btn)}<span class="btn__ico"><svg><use href="#i-wa"/></svg></span></a>`
         : `<button class="btn btn--accent" type="button" data-add="${v.id}">${esc(v.btn)}<span class="btn__ico"><svg><use href="#i-plus"/></svg></span></button>`;
       return `<article class="vslide" data-i="${i}">
-        <div class="vslide__img">${pic(v.photo, v.name, '(min-width:1024px) 480px, 84vw')}<span class="vslide__tag">${esc(v.tag)}</span></div>
+        <div class="vposter" style="--len:${(v.word || v.name).length}">
+          <span class="vposter__word" aria-hidden="true">${esc(v.word || v.name)}</span>
+          <img class="vposter__cut" src="img/cut/${v.photo}-900.webp" alt="${esc(v.name)}" loading="lazy" decoding="async">
+          <span class="vslide__tag">${esc(v.tag)}</span>
+        </div>
         <div class="vslide__body">
           <span class="vslide__num">${pad2(i + 1)}</span>
           <h3 class="vslide__name">${esc(v.name)}</h3>
@@ -151,9 +144,17 @@
   /* ================================================================
      Меню-карта
      ================================================================ */
+  /* Каталог — приём Delta Cafés и Henrietta Said: продукт вырезан из фона и стоит на подложке цвета раздела.
+     Где вырезать чисто не получилось (тарелки, рука, газета) — фото в круглом окне-тарелке. */
   const priceHTML = it => it.price
-    ? `<span class="mrow__price">${rub(it.price)}</span>`
-    : `<span class="mrow__price na">цена уточняется</span>`;
+    ? `<span class="pcard__price">${rub(it.price)}</span>`
+    : `<span class="pcard__price na">цена уточняется</span>`;
+  const addBtn = it => `<button class="add" type="button" data-add="${it.id}" aria-label="Добавить «${esc(it.name)}» в корзину"><svg><use href="#i-plus"/></svg></button>`;
+  const stage = it => {
+    const c = (typeof CUTS !== 'undefined') && CUTS[it.photo];
+    if (c && c.mode === 'cut') return `<img class="pcard__cut" src="img/cut/${it.photo}-480.webp" alt="${esc(it.name)}" loading="lazy" decoding="async">`;
+    return `<span class="pcard__circle"><img src="img/menu/${it.photo}-480.webp" alt="${esc(it.name)}" width="480" height="600" loading="lazy" decoding="async"></span>`;
+  };
   const menuWrap = $('[data-menu]');
   const tabsRow = $('[data-tabs-row]');
   if (menuWrap) {
@@ -161,23 +162,23 @@
       `<button class="tab" type="button" data-tab="${c.id}" aria-current="${i === 0}">${esc(c.title)}</button>`).join('');
     menuWrap.innerHTML = CATEGORIES.map(c => {
       const list = ITEMS.filter(i => i.cat === c.id);
-      const rows = list.map((it, k) => {
-        const thumb = it.photo
-          ? `<span class="mrow__thumb"><img src="img/menu/${it.photo}-480.webp" alt="" width="480" height="600" loading="lazy" decoding="async"></span>`
-          : `<span class="mrow__thumb mrow__thumb--none" aria-hidden="true"><svg><use href="#i-rhomb"/></svg></span>`;
-        return `<li class="mrow"${it.photo ? ` data-photo="${it.photo}"` : ''}>
-          <button class="mrow__open" type="button" data-open="${it.id}" aria-label="${esc(it.name)} — подробнее">
-            ${thumb}
-            <span class="mrow__num" aria-hidden="true">${pad2(k + 1)}</span>
-            <span class="mrow__main"><span class="mrow__name">${esc(it.name)}</span><span class="mrow__line">${esc(it.line)}</span>${isDesktop() ? '' : priceHTML(it)}</span>
+      const cards = list.filter(i => i.photo).map(it => `
+        <article class="pcard">
+          <button class="pcard__open" type="button" data-open="${it.id}" aria-label="${esc(it.name)} — подробнее">
+            <span class="pcard__stage">${stage(it)}</span>
+            <span class="pcard__name">${esc(it.name)}</span>
           </button>
-          ${isDesktop() ? priceHTML(it) : ''}
-          <button class="add" type="button" data-add="${it.id}" aria-label="Добавить «${esc(it.name)}» в корзину"><svg><use href="#i-plus"/></svg></button>
-        </li>`;
-      }).join('');
+          <div class="pcard__foot">${priceHTML(it)}${addBtn(it)}</div>
+        </article>`).join('');
+      const rows = list.filter(i => !i.photo).map(it => `
+        <div class="trow">
+          <div><p class="trow__name">${esc(it.name)}</p><p class="trow__line">${esc(it.line)}</p></div>
+          ${priceHTML(it)}${addBtn(it)}
+        </div>`).join('');
       return `<section class="cat" id="cat-${c.id}" data-cat="${c.id}" aria-labelledby="h-${c.id}">
         <div class="cat__head"><h3 id="h-${c.id}">${esc(c.title)}</h3><sup>${list.length}</sup></div>
-        <ul class="mlist">${rows}</ul>
+        ${cards ? `<div class="pgrid">${cards}</div>` : ''}
+        ${rows ? `<div class="trows">${rows}</div>` : ''}
       </section>`;
     }).join('');
 
@@ -200,31 +201,6 @@
       $$('[data-cat]', menuWrap).forEach(s => spy.observe(s));
     }
 
-    // Фото выплывает за курсором (только ПК с мышью)
-    const peek = $('[data-peek]');
-    if (peek && window.matchMedia('(hover: hover) and (min-width: 1024px)').matches && !reduceMotion) {
-      const pImg = document.createElement('img');
-      pImg.alt = ''; pImg.width = 480; pImg.height = 600; pImg.decoding = 'async';
-      let tx = 0, ty = 0, x = 0, y = 0, on = false, raf = 0;
-      const tick = () => {
-        x += (tx - x) * 0.16; y += (ty - y) * 0.16;
-        const rot = clamp((tx - x) * 0.05, -8, 8);
-        peek.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(rot - 3).toFixed(2)}deg)`;
-        raf = on || Math.abs(tx - x) > 0.5 ? requestAnimationFrame(tick) : 0;
-      };
-      menuWrap.addEventListener('mousemove', e => {
-        const row = e.target.closest('.mrow');
-        const photo = row && row.dataset.photo;
-        if (!photo) { on = false; peek.classList.remove('is-on'); return; }
-        const src = `img/menu/${photo}-480.webp`;
-        if (pImg.getAttribute('src') !== src) pImg.src = src;
-        if (!pImg.parentNode) peek.appendChild(pImg);
-        tx = e.clientX + 36; ty = e.clientY - 160;
-        if (!on) { if (!peek.classList.contains('is-on')) { x = tx; y = ty; } on = true; peek.classList.add('is-on'); }
-        if (!raf) raf = requestAnimationFrame(tick);
-      });
-      menuWrap.addEventListener('mouseleave', () => { on = false; peek.classList.remove('is-on'); });
-    }
   }
 
   /* ================================================================
