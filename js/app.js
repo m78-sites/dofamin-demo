@@ -56,7 +56,7 @@
     $$('[data-woven]').forEach(el => {
       const inHero = !!el.closest('.hero');
       const h = el.getBoundingClientRect().height || 120;
-      const rows = Math.max(3, Math.min(6, Math.round(h / 34)));
+      const rows = +el.dataset.rows || Math.max(3, Math.min(6, Math.round(h / 34)));
       el.innerHTML = rugSVG({ rows, reps: 5, loop: true, rowAnim: inHero && !reduceMotion, aspect: 'xMinYMid slice' });
     });
   }
@@ -95,6 +95,20 @@
       `</style>${g}</svg>`;
   }
   buildHeroRug();
+
+  /* Сотканный текст (заголовок на ярлыке): плитка из двух рядов DOFAMIN — прямого и перевёрнутого —
+     лежит фоном и видна только внутри букв. Плитка повторяется без шва через каждые W + 46. */
+  (function weaveText() {
+    const els = $$('[data-woven-text]');
+    if (!els.length) return;
+    const P = W + 46;
+    const row = `<text x="0" y="${CAP}" font-size="100"><tspan class="r">DOFA</tspan><tspan class="b">MIN</tspan></text>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${P.toFixed(1)} ${(2 * CAP).toFixed(1)}" width="${P.toFixed(1)}" height="${(2 * CAP).toFixed(1)}">` +
+      `<style>.r{fill:#9a393b}.b{fill:#3e6585}text{font-family:Georgia,'Times New Roman',serif}</style><rect width="100%" height="100%" fill="#2e1413"/>` +
+      `${row}<g transform="translate(0 ${(2 * CAP).toFixed(1)}) scale(1 -1)">${row}</g></svg>`;
+    const url = 'url("data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg) + '")';
+    els.forEach(el => { el.style.backgroundImage = url; });
+  })();
 
   /* ================================================================
      Бегущая строка: копия содержимого для бесшовного круга
