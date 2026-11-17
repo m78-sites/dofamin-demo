@@ -173,18 +173,25 @@ ul,ol{margin:0;padding:0;list-style:none}
 .hero__rug svg{width:100%;height:100%}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(26,11,10,.45);pointer-events:none}
 @keyframes fadein{from{opacity:0}}
-.hero__in{width:100%;max-width:520px;display:flex;flex-direction:column;align-items:center;gap:var(--s6)}
-.hero__label{position:relative;width:100%;padding:var(--s6) var(--s5) 26px;background:var(--cream);color:var(--cream-ink);border-radius:6px;box-shadow:var(--sh-3);text-align:center;transform:rotate(-2.5deg);animation:labelin 1s var(--e-out) .2s both}
+.hero__in{width:100%;max-width:520px;display:flex;flex-direction:column;gap:var(--s6)}
+.hero__label{position:relative;width:100%;padding:var(--s6) var(--s5) 26px;background:var(--cream);color:var(--cream-ink);border-radius:6px;box-shadow:var(--sh-3);transform:rotate(-2.5deg);animation:labelin 1s var(--e-out) .2s both}
 .hero__label::before{content:"";position:absolute;inset:8px;border:1.5px dashed rgba(74,14,20,.45);border-radius:3px;pointer-events:none}
 @keyframes labelin{from{opacity:0;transform:translateY(32px) rotate(-8deg)}}
 /* логотип на ярлыке соткан из ковра, как надпись в подвале (правила .woven — в разделе «Подвал») */
-.hero__label .hero__logo{width:82%;max-width:340px;margin:0 auto 18px}
+/* шапка ярлыка: «Только в» и тканый логотип — читается как «Только в DOFAMIN» */
+.hero__brand{padding:0 0 var(--s3);border-bottom:1.5px dashed rgba(74,14,20,.3)}
+.hero__only{font:italic 400 20px/1.2 var(--f-display);color:var(--cream-muted);margin-bottom:4px}
+.hero__label .hero__logo{width:74%;max-width:320px;margin:0}
 @supports not ((mask-image:url("")) or (-webkit-mask-image:url(""))){.hero__label .hero__logo{filter:brightness(.22)}}
-.hero__title{font-size:clamp(30px,8.4vw,48px);line-height:1.08;letter-spacing:-.01em;color:var(--cream-ink);text-wrap:balance}
-/* заголовок соткан из ковра, как логотип: плитка из рядов DOFAMIN видна только внутри букв (плитку строит app.js).
+.hero__title{font-size:clamp(26px,7vw,36px);line-height:1.05;letter-spacing:-.01em;color:var(--cream-ink)}
+/* УТП: три позиции, которых нет у других, — строками, как в меню; между ними — пунктир-строчка */
+.usp{display:block;padding:10px 0 9px;border-bottom:1.5px dashed rgba(74,14,20,.18)}
+.usp__nm{display:block}
+.usp__tl{display:block;margin-top:3px;font:italic 400 16px/1.3 var(--f-display);letter-spacing:0;color:var(--cream-muted)}
+/* названия сотканы из ковра, как логотип: плитка из рядов DOFAMIN видна только внутри букв (плитку строит app.js).
    Сдвиг за круг — ровно 14 плиток (плитка = 0.6em × 503.9 / 141.6), поэтому без скачка. */
 @supports ((-webkit-background-clip:text) or (background-clip:text)){
-  .hero__title[data-woven-text]{background-color:var(--rug-bg);background-repeat:repeat;background-size:auto .6em;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:wvtext 40s linear infinite}
+  [data-woven-text]{background-color:var(--rug-bg);background-repeat:repeat;background-size:auto .6em;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:wvtext 40s linear infinite}
 }
 @keyframes wvtext{to{background-position:-29.892em 0}}
 .hero__meta{margin-top:var(--s3);font-size:14px;line-height:1.6;color:var(--cream-muted)}
@@ -196,7 +203,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .hero__btn:hover svg{transform:translateX(3px)}
 .hero__btn:active{transform:scale(.97)}
 .hero__btn:focus-visible{outline-color:var(--wine)}
-.hero__wa{font-size:14px;color:var(--ink);animation:fadein 1s var(--e) .6s both}
+.hero__wa{padding-left:var(--s5);font-size:14px;color:var(--ink);animation:fadein 1s var(--e) .6s both}
 .hero__wa a{display:inline-block;padding:10px 0 2px;text-decoration:none;border-bottom:1px solid var(--line-2)}
 .hero__wa a:hover{border-color:var(--ink)}
 @media (min-width:1024px){.hero__in{max-width:560px}.hero__label{padding:var(--s7) var(--s7) var(--s6)}}
@@ -211,18 +218,10 @@ ul,ol{margin:0;padding:0;list-style:none}
 @keyframes marq{to{transform:translateX(-50%)}}
 
 /* ——— 3. Витрина как сторис ———
-   Как в их Instagram: кружки-хайлайты, большое фото и полоски сверху. Фон перекрашивается под десерт. */
+   Как в их Instagram: большое фото и полоски сверху. Фон перекрашивается под десерт. */
 .vitrina{position:relative;padding:var(--s8) 0;background:var(--vt,#4f2431);transition:background-color .7s var(--e)}
 .vitrina__in{display:flex;flex-direction:column;gap:var(--s5)}
 .vitrina__head h2{font-size:var(--t-h2);margin-top:var(--s2)}
-.vbub{position:relative;display:flex;gap:var(--s3);margin:0 calc(var(--m-x) * -1);padding:2px var(--m-x);overflow-x:auto;scrollbar-width:none}
-.vbub::-webkit-scrollbar{display:none}
-.vbub__b{flex:none;width:68px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;line-height:1.3;color:var(--muted);transition:color var(--d-base) var(--e)}
-.vbub__b span{display:block;width:68px;height:68px;padding:3px;border-radius:50%;border:2px solid rgba(244,235,225,.25);transition:border-color var(--d-base) var(--e),transform var(--d-base) var(--e-out)}
-.vbub__b img{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.vbub__b:hover span{transform:scale(1.05)}
-.vbub__b.is-on{color:var(--ink)}
-.vbub__b.is-on span{border-color:var(--accent-text)}
 .story{position:relative;height:clamp(500px,148vw,600px);border-radius:var(--r-card);overflow:hidden;background:#000;box-shadow:var(--sh-3);isolation:isolate}
 .story__media{position:absolute;inset:0}
 .story__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .5s var(--e),transform 6.5s linear}
@@ -254,11 +253,8 @@ ul,ol{margin:0;padding:0;list-style:none}
 .story__pan .btn{margin-top:6px}
 @media (min-width:1024px){
   .vitrina{padding:var(--s9) 0}
-  .vitrina__in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);grid-template-areas:"head story" "bub story";grid-template-rows:auto 1fr;column-gap:var(--s9);row-gap:var(--s7)}
+  .vitrina__in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);grid-template-areas:"head story";align-items:center;column-gap:var(--s9)}
   .vitrina__head{grid-area:head}
-  .vbub{grid-area:bub;flex-wrap:wrap;align-content:flex-start;gap:var(--s4);margin:0;padding:0;overflow:visible}
-  .vbub__b{width:96px;font-size:13px}
-  .vbub__b span{width:96px;height:96px}
   .story{grid-area:story;height:640px}
 }
 
@@ -329,23 +325,20 @@ ul,ol{margin:0;padding:0;list-style:none}
 .sp p{color:var(--muted);font-size:15.5px}
 .sp .lnk{align-self:flex-start;margin-top:auto}
 
-/* ——— 6. Зал: раскрывается на весь экран ——— */
-.room{position:relative;height:230vh;background:var(--bg-deep)}
-.room__sticky{position:sticky;top:0;height:100vh;overflow:hidden}
-.room__frame{position:absolute;inset:0;clip-path:inset(calc(20vh * (1 - var(--p,0))) calc(25vw * (1 - var(--p,0))) calc(12vh * (1 - var(--p,0))) calc(25vw * (1 - var(--p,0))) round calc(var(--r-card) * (1 - var(--p,0))));will-change:clip-path}
+/* ——— 6. Зал: фото на весь экран, текст снизу на затемнении ——— */
+.room{position:relative;background:var(--bg-deep)}
+.room__in{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.room__frame{position:absolute;inset:0}
 .room__frame picture{display:block;width:100%;height:100%}
-/* в начале в рамке — столик, подушка и кресла; при раскрытии кадр уходит к центру и видна вывеска */
-.room__frame img{width:100%;height:100%;object-fit:cover;object-position:calc(5% + 45% * var(--p,0)) 70%;transform:scale(calc(1.06 - var(--p,0) * .06))}
-.room__frame::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,22,28,.92) 0%,rgba(14,22,28,.6) 42%,rgba(14,22,28,.1) 75%);opacity:var(--p2,0)}
-.room__text{position:absolute;left:0;right:0;bottom:0;max-width:var(--maxw);margin:0 auto;padding:0 var(--m-x) var(--s8);display:flex;flex-direction:column;gap:var(--s5);opacity:var(--p2,0);transform:translateY(calc((1 - var(--p2,0)) * 40px))}
+.room__frame img{width:100%;height:100%;object-fit:cover;object-position:50% 70%}
+.room__frame::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,22,28,.92) 0%,rgba(14,22,28,.6) 42%,rgba(14,22,28,.1) 75%)}
+.room__text{position:relative;width:100%;max-width:var(--maxw);margin:0 auto;padding:var(--s9) var(--m-x) var(--s8);display:flex;flex-direction:column;gap:var(--s5)}
 .room__text h2{font-size:var(--t-h2);max-width:9em}
 .room__text .lead{color:#c3cdd4;max-width:32em}
 .feat{display:flex;flex-wrap:wrap;gap:var(--s2)}
 .feat li{display:inline-flex;align-items:center;gap:var(--s2);padding:8px 14px;border-radius:var(--r-pill);background:rgba(14,22,28,.5);border:1px solid rgba(244,235,225,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:14px}
 .feat svg{width:17px;height:17px;color:#8fb0c9}
 @media (max-width:767px){
-  .room{height:190vh}
-  .room__frame{clip-path:inset(calc(20vh * (1 - var(--p,0))) calc(7vw * (1 - var(--p,0))) round calc(var(--r-card) * (1 - var(--p,0))))}
   .room__frame::after{background:linear-gradient(180deg,rgba(14,22,28,.15) 0%,rgba(14,22,28,.65) 45%,rgba(14,22,28,.96) 100%)}
 }
 
@@ -521,13 +514,10 @@ dialog::backdrop{background:rgba(10,4,4,.72);-webkit-backdrop-filter:blur(4px);b
   *,*::before,*::after{animation-duration:1ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:1ms!important}
   .hero__curtain{display:none}
   .js .reveal{opacity:1;transform:none}
-  .room{height:auto}.room__sticky{position:relative;height:100vh}
-  .room__frame{clip-path:none}.room__frame img{transform:none}
-  .room__frame::after,.room__text{opacity:1;transform:none}
   /* ковёр (его скорость задаётся в самой картинке), логотип на ярлыке, лента и бегущая строка — тихий фон: в этом режиме едут вдвое медленнее, а не стоят.
      Режим часто включает энергосбережение телефона, а без движения пропадает весь эффект. */
   .hero__label .woven__fill .loop,.hdr__logo .woven__fill .loop{animation-duration:120s!important;animation-iteration-count:infinite!important}
-  .hero__title[data-woven-text]{animation-duration:80s!important;animation-iteration-count:infinite!important}
+  [data-woven-text]{animation-duration:80s!important;animation-iteration-count:infinite!important}
   .cakes__ribt{animation-duration:52s!important;animation-iteration-count:infinite!important}
   .marquee__track{animation-duration:96s!important;animation-iteration-count:infinite!important}
   .cakes__rib{clip-path:none}

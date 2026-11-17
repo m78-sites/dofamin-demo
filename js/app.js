@@ -122,19 +122,17 @@
   });
 
   /* ================================================================
-     Витрина как сторис: кружки, полоски, листается сама, пока блок на экране
+     Витрина как сторис: полоски сверху, листается сама, пока блок на экране
      ================================================================ */
   const vSec = $('[data-vitrina]');
   if (vSec) {
     const N = VITRINA.length, DUR = 6000;
-    const story = $('[data-story]'), media = $('[data-v-media]'), bars = $('[data-v-bars]'), bub = $('[data-v-bubbles]'), pan = $('[data-v-pan]');
+    const story = $('[data-story]'), media = $('[data-v-media]'), bars = $('[data-v-bars]'), pan = $('[data-v-pan]');
     story.style.setProperty('--vdur', DUR + 'ms');
     media.innerHTML = VITRINA.map((v, i) =>
       `<img class="story__img" src="img/menu/${v.photo}-800.webp" srcset="img/menu/${v.photo}-480.webp 480w, img/menu/${v.photo}-800.webp 800w" sizes="(min-width:1024px) 440px, 92vw" alt="${esc(v.name)}" width="800" height="1000"${i ? ' loading="lazy"' : ''} decoding="async">`).join('');
     bars.innerHTML = VITRINA.map(() => '<i><b></b></i>').join('');
-    bub.innerHTML = VITRINA.map((v, i) =>
-      `<button class="vbub__b" type="button" data-v-go="${i}"><span><img src="img/menu/${v.photo}-480.webp" alt="" width="480" height="600" loading="lazy" decoding="async"></span>${esc(v.short || v.word || v.name)}</button>`).join('');
-    const imgs = $$('.story__img', media), barEls = $$('i', bars), bubEls = $$('.vbub__b', bub);
+    const imgs = $$('.story__img', media), barEls = $$('i', bars);
     let cur = -1;
 
     const firstSentence = t => (t.match(/^.+?[.!?](\s|$)/) || [t])[0].trim();
@@ -154,16 +152,12 @@
       barEls.forEach(el => el.classList.remove('is-on'));
       void bars.offsetWidth; // перезапуск заполнения полоски
       barEls.forEach((el, k) => { el.classList.toggle('is-done', k < cur); el.classList.toggle('is-on', k === cur); });
-      bubEls.forEach((el, k) => { el.classList.toggle('is-on', k === cur); el.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
-      const bb = bubEls[cur];
-      if (bub.scrollWidth > bub.clientWidth) bub.scrollTo({ left: bb.offsetLeft - (bub.clientWidth - bb.offsetWidth) / 2, behavior: reduceMotion ? 'auto' : 'smooth' });
       vSec.style.setProperty('--vt', v.tint);
       paintPanel(v);
     };
     show(0);
     $('[data-v-next]').addEventListener('click', () => show(cur + 1));
     $('[data-v-prev]').addEventListener('click', () => show(cur - 1));
-    bub.addEventListener('click', e => { const b = e.target.closest('[data-v-go]'); if (b) show(+b.dataset.vGo); });
 
     // Сама листается, только когда сторис на экране и вкладка открыта
     if (!reduceMotion) {
@@ -274,7 +268,6 @@
   /* ================================================================
      Движение по прокрутке: один обработчик на всё
      ================================================================ */
-  const room = $('[data-expand]');
   const cakes = $('[data-box]');
   const steps = $$('[data-step]');
   const constel = $('[data-constel]');
@@ -290,11 +283,6 @@
       const p = view(magic, 0.88, 0.45);
       const n = magicWords.length;
       magicWords.forEach((w, k) => w.style.setProperty('--o', (0.16 + 0.84 * clamp(p * (n + 4) - k)).toFixed(2)));
-    }
-    if (room && !reduceMotion) {
-      const p = sticky(room);
-      room.style.setProperty('--p', clamp(p / 0.7).toFixed(3));
-      room.style.setProperty('--p2', clamp((p - 0.45) / 0.35).toFixed(3));
     }
     if (cakes) {
       // лента «завязывается» слева направо, пока фото торта поднимается по экрану
